@@ -1,0 +1,96 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerMovement : MonoBehaviour
+{
+    private Vector2 movementVector;
+    private Rigidbody rb;
+    [SerializeField] int speed = 0;
+    [SerializeField] private Vector2 sensitivity;
+    private Vector2 rotation;
+    [SerializeField] private float maxVertAngle;
+    private Vector2 tempVec;
+    // Start is called before the first frame update
+
+    private Vector2 GetMouseInput()
+    {
+        
+        Vector2 input = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        return input;
+    }
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rotation = new Vector2(0, 0);
+    }
+
+    void OnMove(InputValue value)
+    {
+        tempVec = value.Get<Vector2>();
+        Debug.Log(tempVec);
+    }
+    void OnJump()
+    {
+        rb.AddForce(new Vector3(0, 350, 0));
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        rotation = GetMouseInput() * sensitivity;
+        while(rotation.x >= 360.00f)
+        {
+            rotation.x -= 360.00f;
+        }
+        while(rotation.x<0.00f){
+            rotation.x += 360.00f;
+        }
+        if(rotation.y > 90)
+        {
+            rotation.y = 90;
+        }else if (rotation.y < -90)
+        {
+            rotation.y = -90;
+        }
+        transform.localEulerAngles = new Vector3(-rotation.y, rotation.x, 0);
+        rb.velocity = new Vector3(speed * movementVector.x, rb.velocity.y, speed * movementVector.y);
+
+        if (tempVec.x > 0.8)
+        {//to the right movement
+            movementVector = new Vector2(Mathf.Sin((Mathf.PI / 2) + (rotation.x * Mathf.PI / 180)), Mathf.Cos((Mathf.PI / 2) + rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.x < -0.8)
+        {//to the left movement
+            movementVector = new Vector2(-Mathf.Sin((Mathf.PI / 2) + (rotation.x * Mathf.PI / 180)), -Mathf.Cos((Mathf.PI / 2) + rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.y > 0.8)
+        {//forward movement
+            movementVector = new Vector2(Mathf.Sin(rotation.x * Mathf.PI / 180), Mathf.Cos(rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.y < -0.8)
+        {//backward movement
+            movementVector = new Vector2(-Mathf.Sin(rotation.x * Mathf.PI / 180), -Mathf.Cos(rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.x < -0.5 && tempVec.x >-0.8 && tempVec.y<-0.5 && tempVec.y >-0.8)
+        {//back and left movement
+            movementVector = new Vector2(-Mathf.Sin((Mathf.PI / 4) + (rotation.x * Mathf.PI / 180)), -Mathf.Cos((Mathf.PI / 4) + rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.x < -0.5 && tempVec.x >-0.8 && tempVec.y>0.5 && tempVec.y <0.8)
+        {//front and left movement
+            movementVector = new Vector2(Mathf.Sin((-Mathf.PI / 4) + (rotation.x * Mathf.PI / 180)), Mathf.Cos((-Mathf.PI / 4) + rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.x > 0.5 && tempVec.x < 0.8 && tempVec.y < -0.5 && tempVec.y > -0.8)
+        {//back and right movement
+            movementVector = new Vector2(-Mathf.Sin((-Mathf.PI / 4) + (rotation.x * Mathf.PI / 180)), -Mathf.Cos((-Mathf.PI / 4) + rotation.x * Mathf.PI / 180));
+        }
+        else if (tempVec.x > 0.5 && tempVec.x < 0.8 && tempVec.y > 0.5 && tempVec.y < 0.8)
+        {//front and right movement
+            movementVector = new Vector2(Mathf.Sin((Mathf.PI / 4) + (rotation.x * Mathf.PI / 180)), Mathf.Cos((Mathf.PI / 4) + rotation.x * Mathf.PI / 180));
+        }
+        else
+        {
+            movementVector = new Vector2(0, 0);
+        }
+    }
+}
