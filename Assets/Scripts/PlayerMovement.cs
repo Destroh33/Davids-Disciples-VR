@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 rotation;
     [SerializeField] private float maxVertAngle;
     private Vector2 tempVec;
+    [SerializeField] GameObject melee;
+    float time;
+    float lastSwingTime;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
 
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        melee.SetActive(false);
         rb = GetComponent<Rigidbody>();
         rotation = new Vector2(0, 0);
         rb.velocity = new Vector3(0, 0, 0);
@@ -38,13 +42,23 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(new Vector3(0, 200, 0));
     }
+    void OnMelee()
+    {
+        melee.SetActive(true);
+        lastSwingTime = time;
+    }
     // Update is called once per frame
     void Update()
     {
-        
+
         //transform.forward = new Vector3(tr.forward.x, 0, tr.forward.z);
+        time += Time.deltaTime;
+        if(time> lastSwingTime + 0.05f)
+        {
+            melee.SetActive(false);
+        }
         rotation += GetMouseInput() * sensitivity;
-        //transform.localEulerAngles = new Vector3(-rotation.y,0, 0);
+        transform.localEulerAngles = new Vector3(0,rotation.x, 0);
         rb.velocity = new Vector3(speed * movementVector.x, rb.velocity.y, speed * movementVector.y);
 
         if (tempVec.x > 0.8)

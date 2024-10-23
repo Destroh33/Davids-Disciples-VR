@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour
 {
-    bool inRange = false;
-    Collider lastCollision;
+    //bool inRange = false;
+    //Collider lastCollision;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,27 +21,8 @@ public class MeleeAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("In Range");
-            lastCollision = collision;
-            inRange = true;
+            Destroy(collision.gameObject);
         }
     }
-    void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Out of Range");
-            inRange = false;
-            lastCollision = null;
-        }
-    }
-
-    void OnMelee()
-    {
-        if (inRange)
-        {
-            Debug.Log("Attacked");
-            Destroy(lastCollision.gameObject);
-        }
-    }
+    
 }
