@@ -12,48 +12,39 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 rotation;
     [SerializeField] private float maxVertAngle;
     private Vector2 tempVec;
+    //[SerializeField] Transform tr;
     // Start is called before the first frame update
 
     private Vector2 GetMouseInput()
     {
-        
-        Vector2 input = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        Vector2 input = new Vector2(Input.GetAxis("Mouse X") , Input.GetAxis("Mouse Y"));
         return input;
     }
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
         rotation = new Vector2(0, 0);
+        rb.velocity = new Vector3(0, 0, 0);
     }
 
     void OnMove(InputValue value)
     {
         tempVec = value.Get<Vector2>();
-        Debug.Log(tempVec);
+        //Debug.Log(tempVec);
     }
     void OnJump()
     {
-        rb.AddForce(new Vector3(0, 350, 0));
+        rb.AddForce(new Vector3(0, 200, 0));
     }
     // Update is called once per frame
     void Update()
     {
-        rotation = GetMouseInput() * sensitivity;
-        while(rotation.x >= 360.00f)
-        {
-            rotation.x -= 360.00f;
-        }
-        while(rotation.x<0.00f){
-            rotation.x += 360.00f;
-        }
-        if(rotation.y > 90)
-        {
-            rotation.y = 90;
-        }else if (rotation.y < -90)
-        {
-            rotation.y = -90;
-        }
-        transform.localEulerAngles = new Vector3(-rotation.y, rotation.x, 0);
+        
+        //transform.forward = new Vector3(tr.forward.x, 0, tr.forward.z);
+        rotation += GetMouseInput() * sensitivity;
+        //transform.localEulerAngles = new Vector3(-rotation.y,0, 0);
         rb.velocity = new Vector3(speed * movementVector.x, rb.velocity.y, speed * movementVector.y);
 
         if (tempVec.x > 0.8)
