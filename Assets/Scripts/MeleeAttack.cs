@@ -21,7 +21,7 @@ public class MeleeAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
+            collision.GetComponent<EntityHealthAndDmg>().TakeDamage(50);
         }
     }
     

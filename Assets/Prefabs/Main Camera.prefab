@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: {x: 5, y: 5}
   maxVertAngle: 90
-  t: {fileID: 0}
+  t: {fileID: 1256786410783957384, guid: b21fa20b3b74257479c2ee334c585b92, type: 3}
 --- !u!1 &8354326435305959556
 GameObject:
   m_ObjectHideFlags: 0
