@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3788848831193433028}
   - component: {fileID: 5419877691239777998}
   - component: {fileID: 2496682741251103620}
+  - component: {fileID: 8427422668293452443}
+  - component: {fileID: -120766973501744381}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -182,3 +184,30 @@ MonoBehaviour:
   speed: 5
   sensitivity: {x: 5, y: 5}
   maxVertAngle: 90
+  melee: {fileID: 0}
+--- !u!114 &8427422668293452443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734370059291472738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba467daab75cb447ae2e7c7b2534a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 200
+  player: 1
+--- !u!114 &-120766973501744381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734370059291472738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbd35ddd0f10004cb90fca7d9965361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
