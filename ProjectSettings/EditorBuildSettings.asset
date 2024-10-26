@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Krishna.unity
     guid: 0707fca88c6d644f5a56372f5a97d12c
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: 417d64c488986465d95afa6817d783c5
   m_configObjects: {}
