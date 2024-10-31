@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     float time;
     float lastSwingTime;
     bool grounded = true;
+    int keyCount = 0;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
 
@@ -56,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
+        }
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            Destroy(collision.gameObject);
+            keyCount++;
         }
     }
     void OnCollisionExit(Collision collision)
