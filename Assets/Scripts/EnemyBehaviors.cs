@@ -8,7 +8,10 @@ public class EnemyBehaviors : MonoBehaviour
     private Rigidbody rb;
     private Transform tr;
     private Transform t;
+    private bool playerContact = false;
     [SerializeField] float speed;
+    private bool canAttack = true;
+    private GameObject player;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,7 +28,37 @@ public class EnemyBehaviors : MonoBehaviour
     void Update()
     {
         setDirection();
-        Debug.Log(t.position);
+        //Debug.Log(t.position);
         rb.velocity = tr.forward*speed;
+        if (playerContact && canAttack)
+        {
+            Attack();
+        }
+
+    }
+    void Attack()
+    {
+        player.GetComponent<EntityHealthAndDmg>().TakeDamage(1);
+        canAttack = false;
+        Invoke("Cooldown", 2f);
+    }
+    void Cooldown()
+    {
+        canAttack = true;
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player = collision.gameObject;
+            playerContact = true;
+        }
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerContact = false;
+        }
     }
 }

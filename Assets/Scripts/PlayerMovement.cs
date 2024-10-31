@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject melee;
     float time;
     float lastSwingTime;
+    bool grounded = true;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
 
@@ -40,17 +41,33 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump()
     {
-        rb.AddForce(new Vector3(0, 200, 0));
+        if (grounded)
+        {
+            rb.AddForce(new Vector3(0, 200, 0));
+        }
     }
     void OnMelee()
     {
         melee.SetActive(true);
         lastSwingTime = time;
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            grounded = true;
+        }
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            grounded = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-
         //transform.forward = new Vector3(tr.forward.x, 0, tr.forward.z);
         time += Time.deltaTime;
         if(time> lastSwingTime + 0.05f)

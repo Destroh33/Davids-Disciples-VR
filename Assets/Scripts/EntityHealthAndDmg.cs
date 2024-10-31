@@ -14,6 +14,7 @@ public class EntityHealthAndDmg : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        //Debug.Log(currentHealth);
     }
 
     // Update is called once per frame
