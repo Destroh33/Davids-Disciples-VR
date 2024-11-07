@@ -20,6 +20,10 @@ public class PlayerAbility : MonoBehaviour
     {
         cam = Camera.main;
     }
+    public int GetAbilityVal()
+    {
+        return abilityVal;
+    }
     private void Awake()
     {
         abilityActivate.Enable();
