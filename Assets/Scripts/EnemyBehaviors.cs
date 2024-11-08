@@ -38,7 +38,7 @@ public class EnemyBehaviors : MonoBehaviour
     }
     void Attack()
     {
-        player.GetComponent<EntityHealthAndDmg>().TakeDamage(1);
+        player.GetComponent<EntityHealthAndDmg>().TakeDamage(100);
         canAttack = false;
         Invoke("Cooldown", 2f);
     }

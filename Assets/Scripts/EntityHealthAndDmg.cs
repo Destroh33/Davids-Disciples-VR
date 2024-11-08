@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class EntityHealthAndDmg : MonoBehaviour
 {
     [SerializeField] int maxHealth;
@@ -16,6 +16,10 @@ public class EntityHealthAndDmg : MonoBehaviour
         currentHealth -= damage;
         //Debug.Log(currentHealth);
     }
+    public int GetHealth()
+    {
+        return currentHealth;
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,6 +27,11 @@ public class EntityHealthAndDmg : MonoBehaviour
         if(currentHealth <= 0)
         {
             Destroy(this.gameObject);
+            if (player)
+            {
+                SceneManager.LoadScene("Game Over");
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 }
