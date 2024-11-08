@@ -71,6 +71,22 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 4)
+        {
+            grounded = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 4)
+        {
+            grounded = true;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
