@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2496682741251103620}
   - component: {fileID: 8427422668293452443}
   - component: {fileID: -120766973501744381}
+  - component: {fileID: 8470229119816552461}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -185,6 +186,7 @@ MonoBehaviour:
   sensitivity: {x: 5, y: 5}
   maxVertAngle: 90
   melee: {fileID: 0}
+  keyCount: 0
 --- !u!114 &8427422668293452443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,3 +213,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbd35ddd0f10004cb90fca7d9965361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8470229119816552461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734370059291472738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9b7d3b0af22ae479f2e3cdbc710157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityVal: 2
+  ice: {fileID: 0}
+  abilityActivate:
+    m_Name: Ability Activate
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c31e7ed6-1ef1-4e19-9b5f-984a7a245753
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0

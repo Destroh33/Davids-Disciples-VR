@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 sensitivity;
     private Vector2 rotation;
     [SerializeField] private float maxVertAngle;
+    [SerializeField] GameObject player;
     private Vector2 tempVec;
     [SerializeField] GameObject melee;
     float time;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public int keyCount = 0;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
+    bool dubjump = true;
 
     private Vector2 GetMouseInput()
     {
@@ -46,6 +48,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(new Vector3(0, 200, 0));
         }
+        if (!grounded && dubjump && player.GetComponent<PlayerAbility>().GetAbilityVal() == 3)
+        {
+            rb.AddForce(new Vector3(0, 200, 0));
+            dubjump = false;
+        }
+        
     }
     void OnMelee()
     {
@@ -57,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             grounded = true;
+            dubjump = true;
         }
         if (collision.gameObject.CompareTag("Key"))
         {
@@ -69,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             grounded = false;
+            dubjump = true;
         }
     }
 
