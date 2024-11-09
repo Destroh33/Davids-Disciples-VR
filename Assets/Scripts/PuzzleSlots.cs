@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PuzzleSlots : MonoBehaviour
 {
    public bool isOccupied = false;
    public GameObject puzzlePiece = null;
+   [SerializeField] GameObject correctPiece; 
 // maybe later want to make it so that the puzzle pieces snap in place and arent moveable ? 
-// also change the tag to compare to actual puzzle slots since there will be multiple grabbable things
    private void OnTriggerEnter(Collider other)
    {
-    if (other.CompareTag("Grabbable") && !isOccupied)
+    if (other.gameObject == correctPiece && !isOccupied)
     {
         puzzlePiece = other.gameObject;
         isOccupied = true;
@@ -20,7 +21,7 @@ public class PuzzleSlots : MonoBehaviour
         Debug.Log("weeeheee puzzle piece placed");
     }
    }
-// can add check here later to check if all slots have been activated
+// can add check here later to check if all slots have been activated to give key 
    private void OnTriggerExit(Collider other)
    {
      if (other.CompareTag("Grabbable"))
