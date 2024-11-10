@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -97,10 +98,11 @@ public class PlayerAbility : MonoBehaviour
         if (isHolding && grabbedObject != null)
         {
             Vector3 targetPosition = cam.transform.position + cam.transform.forward * 3.2f; 
-            grabbedObject.transform.position = targetPosition + grabOffset;
+            Vector3 position = targetPosition + grabOffset;
+            Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+            rb.MovePosition(position);
+
         }
-        //transform.rotation = new Qua
-           //transform.LookAt()
         
     }
 
@@ -132,36 +134,6 @@ public class PlayerAbility : MonoBehaviour
             // Debug.DrawRay(cam.transform.position,cam.transform.forward,Color.red,10);    
         }
     }
-// have to make it so that when colliding with the ground it turns kinematic again or else it passes thru the ground 
-// this does not work yet for some reason 
-private void OnCollisionEnter(Collision collision)
-{
-    int groundLayer = 6; 
-    if (collision.gameObject.layer == groundLayer && isHolding)
-    {
-        Debug.Log("hit ground");
-        
-        if (grabbedObject != null)
-        {
-            grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-        }
-    }
-}
-
-private void OnCollisionExit(Collision collision)
-{
-    int groundLayer = 6;
-
-    if (collision.gameObject.layer == groundLayer && isHolding)
-    {
-        Debug.Log("no longer on ground");
-        
-        if (grabbedObject != null)
-        {
-            grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
-    }
-}
     private void OnGrab(){
         if (abilityVal == 2)
         {
@@ -171,14 +143,17 @@ private void OnCollisionExit(Collision collision)
 
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
-                // change to include tag of puzzle pieces later
                 if (hit.transform.gameObject.CompareTag("Grabbable")) 
                 {
-                    Debug.Log("Hit: " + hit.transform.name);
+                   // Debug.Log("Hit: " + hit.transform.name);
                     grabbedObject = hit.transform.gameObject;
-                    grabOffset = grabbedObject.transform.position - hit.point; 
+                    Rigidbody rb = grabbedObject.GetComponent<Rigidbody>(); 
+                    grabOffset = rb.transform.position - hit.point; 
                     isHolding = true;
-                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                    rb.isKinematic = true;
+                    rb.useGravity = false;
+        
+
                //     Debug.Log("grabbed");
                 }
             }
@@ -187,13 +162,46 @@ private void OnCollisionExit(Collision collision)
     private void OnLetGo(){
         if (isHolding && grabbedObject != null)
         {
-            grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+            Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
             grabbedObject = null;
             isHolding = false;
       //      Debug.Log("let go");
         }
 
     }
+
+    // have to make it so that when colliding with the ground it turns kinematic again or else it passes thru the ground 
+// this does not work yet for some reason 
+// private void OnCollisionEnter(Collision other)
+// {
+//     int groundLayer = 6; 
+//     if (other.gameObject.layer == groundLayer && isHolding)
+//     {
+        
+//         if (grabbedObject != null)
+//         {
+//             Debug.Log("hit ground");
+//             // grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+//         }
+//     }
+// }
+
+// private void OnCollisionExit(Collision other)
+// {
+//     int groundLayer = 6;
+
+//     if (other.gameObject.layer == groundLayer && isHolding)
+//     {
+        
+//         if (grabbedObject != null)
+//         {
+//             Debug.Log("no longer on ground");
+//             // grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+//         }
+//     }
+// }
+    
 
 }
 

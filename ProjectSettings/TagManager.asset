@@ -10,6 +10,7 @@ TagManager:
   - Key
   - Burnable
   - Grabbable
+  - NotGrabbable
   layers:
   - Default
   - TransparentFX
