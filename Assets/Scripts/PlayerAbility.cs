@@ -66,8 +66,6 @@ public class PlayerAbility : MonoBehaviour
                     abilityActivate.canceled += _ => OnLetGo();
 
                 };
-                //abilityActivate.performed += _ => { Debug.Log("ice grow max!!!!!!"); currIce.growing = false; };
-                //abilityActivate.canceled += _ => { Debug.Log("premature!!"); currIce.growing = false; };
                 break;
             
         }
@@ -78,30 +76,15 @@ public class PlayerAbility : MonoBehaviour
         
     }
 
-    //private IEnumerator Grow(GameObject ice)
-    //{
-    //    abilityActive = true;
-    //    while (abilityActive)
-    //    {
-    //        Debug.Log("growingngggg");
-    //        //float x = 0.5f;
-    //        //ice.transform.localScale = new Vector3(2f, x, 2f);
-    //        //x += 0.05f;
-    //        ////Invoke("mehtod", 0.05f);
-    //        ////Time.
-    //    }
-    //    yield return null;
-    //}
-    // Update is called once per frame
     void Update()
     {
         if (isHolding && grabbedObject != null)
         {
-            Vector3 targetPosition = cam.transform.position + cam.transform.forward * 3.2f; 
+            Vector3 targetPosition = cam.transform.position + cam.transform.forward /** 3.2f*/; 
             Vector3 position = targetPosition + grabOffset;
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            rb.MovePosition(position);
-
+            
+            rb.AddForce( -cam.transform.forward/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
         }
         
     }
@@ -147,10 +130,11 @@ public class PlayerAbility : MonoBehaviour
                 {
                    // Debug.Log("Hit: " + hit.transform.name);
                     grabbedObject = hit.transform.gameObject;
-                    Rigidbody rb = grabbedObject.GetComponent<Rigidbody>(); 
-                    grabOffset = rb.transform.position - hit.point; 
+                    Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+                    grabOffset = rb.transform.position;
+                    //grabOffset = rb.transform.position - hit.point; 
                     isHolding = true;
-                    rb.isKinematic = true;
+                    //rb.isKinematic = true;
                     rb.useGravity = false;
         
 
@@ -163,7 +147,7 @@ public class PlayerAbility : MonoBehaviour
         if (isHolding && grabbedObject != null)
         {
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
+            rb.useGravity = true;
             grabbedObject = null;
             isHolding = false;
       //      Debug.Log("let go");
