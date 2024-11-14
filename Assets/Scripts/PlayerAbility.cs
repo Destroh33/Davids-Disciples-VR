@@ -83,8 +83,7 @@ public class PlayerAbility : MonoBehaviour
             Vector3 targetPosition = cam.transform.position + cam.transform.forward /** 3.2f*/; 
             Vector3 position = targetPosition + grabOffset;
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            
-            rb.AddForce( -cam.transform.forward/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
+            rb.AddForce(-cam.transform.forward/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
         }
         
     }
@@ -154,38 +153,6 @@ public class PlayerAbility : MonoBehaviour
         }
 
     }
-
-    // have to make it so that when colliding with the ground it turns kinematic again or else it passes thru the ground 
-// this does not work yet for some reason 
-// private void OnCollisionEnter(Collision other)
-// {
-//     int groundLayer = 6; 
-//     if (other.gameObject.layer == groundLayer && isHolding)
-//     {
-        
-//         if (grabbedObject != null)
-//         {
-//             Debug.Log("hit ground");
-//             // grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-//         }
-//     }
-// }
-
-// private void OnCollisionExit(Collision other)
-// {
-//     int groundLayer = 6;
-
-//     if (other.gameObject.layer == groundLayer && isHolding)
-//     {
-        
-//         if (grabbedObject != null)
-//         {
-//             Debug.Log("no longer on ground");
-//             // grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-//         }
-//     }
-// }
-    
 
 }
 
