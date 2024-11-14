@@ -30,6 +30,10 @@ public class PlayerAbility : MonoBehaviour
     {
         return abilityVal;
     }
+    public void SetAbilityVal(int val)
+    {
+        abilityVal = val;
+    }
 
     private void Awake()
     {

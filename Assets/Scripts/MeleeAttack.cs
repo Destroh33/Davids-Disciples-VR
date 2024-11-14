@@ -9,6 +9,7 @@ public class MeleeAttack : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] GameObject player;
     bool fire = false;
+    bool moving = true;
     void Start()
     {
         
@@ -31,6 +32,23 @@ public class MeleeAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("Burnable") && fire){
             collision.GetComponent<BurnScript>().Burn();
         }
+        if (collision.gameObject.CompareTag("Button")){
+            switchAirMoving();
+        }
+    }
+    void switchAirMoving()
+    {
+        if (moving)
+        {
+            moving = false;
+        }
+        else
+        {
+            moving = true;
+        }
+    }
+    public bool isAirMoving() {
+        return moving;
     }
     
 }
