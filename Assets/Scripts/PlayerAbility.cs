@@ -10,6 +10,7 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] int abilityVal = 1;
     [SerializeField] IceGrow ice;
     [SerializeField] InputAction abilityActivate;
+    [SerializeField] GameObject melee;
 
     bool abilityActive;
     //Ray ray;
@@ -84,10 +85,10 @@ public class PlayerAbility : MonoBehaviour
     {
         if (isHolding && grabbedObject != null)
         {
-            Vector3 targetPosition = cam.transform.position + cam.transform.forward /** 3.2f*/; 
-            Vector3 position = targetPosition + grabOffset;
+            Vector3 targetPosition = melee.transform.position /** 3.2f*/; 
+            Vector3 positionDiff = targetPosition-grabbedObject.transform.position;
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            rb.AddForce(-cam.transform.forward/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
+            rb.AddForce(positionDiff*4.0f/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
         }
         
     }
