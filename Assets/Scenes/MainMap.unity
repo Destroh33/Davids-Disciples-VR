@@ -8167,6 +8167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 109a1583c8dd8084eaedc6dc6eedc350, type: 2}
     - target: {fileID: 8470229119816552461, guid: b21fa20b3b74257479c2ee334c585b92, type: 3}
+      propertyPath: melee
+      value: 
+      objectReference: {fileID: 1586317678}
+    - target: {fileID: 8470229119816552461, guid: b21fa20b3b74257479c2ee334c585b92, type: 3}
       propertyPath: abilityVal
       value: 0
       objectReference: {fileID: 0}
@@ -9503,6 +9507,7 @@ MonoBehaviour:
       m_Action: Ability Activate
       m_Flags: 0
     m_Flags: 0
+  melee: {fileID: 1586317678}
 --- !u!1 &1255049062
 GameObject:
   m_ObjectHideFlags: 0
