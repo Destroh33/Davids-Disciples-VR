@@ -39,14 +39,7 @@ public class MeleeAttack : MonoBehaviour
     }
     void switchAirMoving()
     {
-        if (moving)
-        {
-            moving = false;
-        }
-        else
-        {
-            moving = true;
-        }
+        moving = !moving;
     }
     public bool isAirMoving() {
         return moving;

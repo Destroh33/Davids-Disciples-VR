@@ -19,7 +19,14 @@ public class AbilityTriggerScript : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player")){
-            collision.gameObject.GetComponent<PlayerAbility>().SetAbilityVal(AbilityValSet);
+            if (collision.gameObject.GetComponent<PlayerAbility>().GetAbilityVal() != 0)
+            {
+                collision.gameObject.GetComponent<PlayerAbility>().SetAbilityVal(0);
+            }
+            else
+            {
+                collision.gameObject.GetComponent<PlayerAbility>().SetAbilityVal(AbilityValSet);
+            }
             Debug.Log("Ability val changed");
         }
     }

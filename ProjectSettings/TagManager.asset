@@ -12,6 +12,8 @@ TagManager:
   - Grabbable
   - NotGrabbable
   - Button
+  - Crab
+  - FireGate
   layers:
   - Default
   - TransparentFX

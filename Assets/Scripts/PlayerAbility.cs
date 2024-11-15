@@ -63,6 +63,7 @@ public class PlayerAbility : MonoBehaviour
                 };
                 break; 
                 case 2:
+                case 4:
                 {
                     abilityActivate.started += _ => {
                         Debug.Log("earth");
@@ -122,7 +123,7 @@ public class PlayerAbility : MonoBehaviour
         }
     }
     private void OnGrab(){
-        if (abilityVal == 2)
+        if (abilityVal == 2 || abilityVal == 4)
         {
            // Debug.Log("i am grabbing");
             int layerMask = 1 << 3;
@@ -130,7 +131,7 @@ public class PlayerAbility : MonoBehaviour
 
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
-                if (hit.transform.gameObject.CompareTag("Grabbable")) 
+                if (hit.transform.gameObject.CompareTag("Grabbable")|| hit.transform.gameObject.CompareTag("Crab")) 
                 {
                    // Debug.Log("Hit: " + hit.transform.name);
                     grabbedObject = hit.transform.gameObject;
