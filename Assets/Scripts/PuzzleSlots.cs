@@ -7,12 +7,7 @@ public class PuzzleSlots : MonoBehaviour
 {
    public bool isOccupied = false;
    public GameObject puzzlePiece = null;
-   [SerializeField] GameObject correctPiece;  
-   private PuzzleManager puzzleManager;
-   private void Start()
-   {
-      puzzleManager = FindObjectOfType<PuzzleManager>();
-   }
+   [SerializeField] GameObject correctPiece; 
    private void OnTriggerEnter(Collider other)
    {
     if (other.gameObject == correctPiece && !isOccupied)
@@ -23,12 +18,7 @@ public class PuzzleSlots : MonoBehaviour
         puzzlePiece.transform.rotation = transform.rotation;
         puzzlePiece.GetComponent<Rigidbody>().isKinematic = true;
         Debug.Log("weeeheee puzzle piece placed");
-    }
-// use this later to seeif puzzle is complete and output a key 
-         if (puzzleManager.puzzleComplete())
-        {
-            Debug.Log("Puzzle complete");
-        }
+    } 
    }
 
 }

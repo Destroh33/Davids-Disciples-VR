@@ -20,6 +20,7 @@ public class AbilityTriggerScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")){
             collision.gameObject.GetComponent<PlayerAbility>().SetAbilityVal(AbilityValSet);
+            Debug.Log("Ability val changed");
         }
     }
 }
