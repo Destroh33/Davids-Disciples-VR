@@ -18,10 +18,11 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.GetComponent<PlayerAbility>().GetAbilityVal() == 2)
+        if(player.GetComponent<PlayerAbility>().GetAbilityVal() == 4)
         {
             fire = true;
         }
+
     }
     void OnTriggerEnter(Collider collision)
     {
