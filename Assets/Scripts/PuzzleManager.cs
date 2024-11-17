@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
+
     public List<PuzzleSlots> puzzleSlots;
+
+    [SerializeField] GameObject key; 
 
     public bool allOccupied()
     {
@@ -21,6 +24,15 @@ public class PuzzleManager : MonoBehaviour
     public bool puzzleComplete()
     {
         return allOccupied();
+    }
+
+    private void Update()
+    {
+        if (puzzleComplete() && key != null)
+        {
+            Debug.Log("Puzzle complete");
+            key.SetActive(true);
+        }
     }
 
     private void Start()

@@ -5,7 +5,7 @@ using TMPro;
 public class HealthUIScript : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] TMP_Text healthText;
+    //[SerializeField] TMP_Text healthText;
     [SerializeField] TMP_Text keyText;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class HealthUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthText.text = "Health: " + player.GetComponent<EntityHealthAndDmg>().GetHealth();
+        //healthText.text = "Health: " + player.GetComponent<EntityHealthAndDmg>().GetHealth();
         keyText.text = "Keys: " + player.GetComponent<PlayerMovement>().keyCount;
     }
 }

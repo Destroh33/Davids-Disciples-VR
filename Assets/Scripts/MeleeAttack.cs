@@ -18,10 +18,11 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.GetComponent<PlayerAbility>().GetAbilityVal() == 2)
+        if(player.GetComponent<PlayerAbility>().GetAbilityVal() == 4)
         {
             fire = true;
         }
+
     }
     void OnTriggerEnter(Collider collision)
     {
@@ -38,14 +39,7 @@ public class MeleeAttack : MonoBehaviour
     }
     void switchAirMoving()
     {
-        if (moving)
-        {
-            moving = false;
-        }
-        else
-        {
-            moving = true;
-        }
+        moving = !moving;
     }
     public bool isAirMoving() {
         return moving;

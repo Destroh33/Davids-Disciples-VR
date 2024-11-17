@@ -10,6 +10,7 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] int abilityVal = 1;
     [SerializeField] IceGrow ice;
     [SerializeField] InputAction abilityActivate;
+    [SerializeField] GameObject melee;
 
     bool abilityActive;
     //Ray ray;
@@ -62,6 +63,7 @@ public class PlayerAbility : MonoBehaviour
                 };
                 break; 
                 case 2:
+                case 4:
                 {
                     abilityActivate.started += _ => {
                         Debug.Log("earth");
@@ -84,10 +86,10 @@ public class PlayerAbility : MonoBehaviour
     {
         if (isHolding && grabbedObject != null)
         {
-            Vector3 targetPosition = cam.transform.position + cam.transform.forward /** 3.2f*/; 
-            Vector3 position = targetPosition + grabOffset;
+            Vector3 targetPosition = melee.transform.position /** 3.2f*/; 
+            Vector3 positionDiff = targetPosition-grabbedObject.transform.position;
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            rb.AddForce(-cam.transform.forward/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
+            rb.AddForce(positionDiff*4.0f/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
         }
         
     }
@@ -121,7 +123,7 @@ public class PlayerAbility : MonoBehaviour
         }
     }
     private void OnGrab(){
-        if (abilityVal == 2)
+        if (abilityVal == 2 || abilityVal == 4)
         {
            // Debug.Log("i am grabbing");
             int layerMask = 1 << 3;
@@ -129,7 +131,7 @@ public class PlayerAbility : MonoBehaviour
 
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
             {
-                if (hit.transform.gameObject.CompareTag("Grabbable")) 
+                if (hit.transform.gameObject.CompareTag("Grabbable")|| hit.transform.gameObject.CompareTag("Crab")) 
                 {
                    // Debug.Log("Hit: " + hit.transform.name);
                     grabbedObject = hit.transform.gameObject;

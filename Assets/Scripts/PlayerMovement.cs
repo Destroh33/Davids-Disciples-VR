@@ -102,7 +102,11 @@ public class PlayerMovement : MonoBehaviour
     {
         //transform.forward = new Vector3(tr.forward.x, 0, tr.forward.z);
         time += Time.deltaTime;
-        if(time> lastSwingTime + 0.05f)
+        if (player.GetComponent<PlayerAbility>().GetAbilityVal() == 2)
+        {
+            melee.SetActive(true);
+        }
+        if (time> lastSwingTime + 0.05f)
         {
             melee.SetActive(false);
         }
