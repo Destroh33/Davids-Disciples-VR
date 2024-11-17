@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject melee;
     float time;
     float lastSwingTime;
-    bool grounded = true;
+    bool grounded = true,watered = false;
     public int keyCount = 0;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump()
     {
-        if (grounded)
+        if (grounded && !watered)
         {
             rb.AddForce(new Vector3(0, 200, 0));
         }
@@ -53,7 +53,9 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(new Vector3(0, 200, 0));
             dubjump = false;
         }
-        
+        if(watered)
+            rb.AddForce(new Vector3(0, 50, 0));
+
     }
     void OnMelee()
     {
@@ -84,17 +86,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("wata");
         if(other.gameObject.layer == 4)
         {
-            grounded = false;
+            watered = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("wataaa");
         if (other.gameObject.layer == 4)
         {
-            grounded = true;
+            watered = false;
         }
     }
     // Update is called once per frame
