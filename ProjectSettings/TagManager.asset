@@ -12,6 +12,7 @@ TagManager:
   - Grabbable
   - NotGrabbable
   - Button
+  - Damage
   layers:
   - Default
   - TransparentFX

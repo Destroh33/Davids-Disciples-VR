@@ -10,7 +10,8 @@ public class bossBehavior : MonoBehaviour
     bool playerIn;
     Animator anim;
     Rigidbody rb;
-    // Start is called before the first frame update
+    [SerializeField] List<Collider> dmgBox; 
+
     private void Awake()
     {
 
@@ -90,10 +91,12 @@ public class bossBehavior : MonoBehaviour
     {
         if (playerIn)
         {
-            if(attack == 1)
+            if(attack == 1) //
             {
-
                 anim.SetTrigger("attackL");
+                dmgBox[0].tag = "Damage";
+                dmgBox[1].tag = "Damage";
+                
             }
             else if(attack == 2) {
             
@@ -101,6 +104,7 @@ public class bossBehavior : MonoBehaviour
             }
         }
         attack = 0;
+        Invoke("clearDamage", 1f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -116,5 +120,10 @@ public class bossBehavior : MonoBehaviour
         {
             playerIn = false;
         }
+    }
+
+    void clearDamage()
+    {
+        
     }
 }
