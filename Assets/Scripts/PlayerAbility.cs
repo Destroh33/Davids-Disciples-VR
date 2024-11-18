@@ -12,7 +12,7 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] InputAction abilityActivate;
     [SerializeField] GameObject melee;
 
-    bool abilityActive;
+    bool abilityActive,cooldown = true;
     //Ray ray;
     //0 - none
     //1 - ice
@@ -46,20 +46,25 @@ public class PlayerAbility : MonoBehaviour
             case 1: //ice
                 IceGrow currIce = null;
                 abilityActivate.started += _ => {
-                    Debug.Log("ice");
-                    int layerMask = (1 << 4) + 1;
-                    
-                    RaycastHit hit;
-                    if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
+                    if(cooldown)
                     {
-                        if (hit.transform.gameObject.layer == 4)
+                        cooldown = false;
+                        Debug.Log("ice");
+                        int layerMask = (1 << 4) + 1;
+                    
+                        RaycastHit hit;
+                        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
                         {
-                            Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.red, 10);
-                            Debug.Log("ray hit");
-                            currIce = Instantiate(ice, hit.point, this.transform.rotation);
-                                                        
+                            if (hit.transform.gameObject.layer == 4)
+                            {
+                                Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.red, 10);
+                                Debug.Log("ray hit");
+                                currIce = Instantiate(ice, hit.point, this.transform.rotation);
+
+                            }
                         }
-                    }  
+                        Invoke("resetCooldown", 1f);
+                    }
                 };
                 break; 
                 case 2:
@@ -119,31 +124,6 @@ public class PlayerAbility : MonoBehaviour
     void Hold(InputAction.CallbackContext context) { 
 
     }
-
-    void OnAbility()
-    {
-        Debug.Log("ability");
-        if (abilityVal == 1) {
-            Debug.Log("ice");
-            int layerMask = (1 << 4) + 1;
-            RaycastHit hit;
-            if(Physics.Raycast(cam.transform.position, cam.transform.forward,out hit, Mathf.Infinity, layerMask))
-            {
-                if (hit.transform.gameObject.layer == 4)
-                {
-                    Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.red, 10);
-                    Debug.Log("ray hit");
-                    Instantiate(ice, hit.point, this.transform.rotation);
-                }
-            }
-            else
-            {
-                Debug.DrawRay(cam.transform.position, cam.transform.forward * 1000, Color.yellow, 10);
-                Debug.Log("ray miss!");
-            }
-            // Debug.DrawRay(cam.transform.position,cam.transform.forward,Color.red,10);    
-        }
-    }
     private void OnGrab(){
         if (abilityVal == 2 || abilityVal == 4)
         {
@@ -181,6 +161,9 @@ public class PlayerAbility : MonoBehaviour
         }
 
     }
-
+    void resetCooldown()
+    {
+        cooldown = true;
+    }
 }
 
