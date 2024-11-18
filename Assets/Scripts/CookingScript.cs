@@ -6,10 +6,12 @@ public class CookingScript : MonoBehaviour
 {
     private bool cooked = false;
     [SerializeField] GameObject log;
+    [SerializeField] GameObject water;
+    [SerializeField] GameObject soup;
     // Start is called before the first frame update
     void Start()
     {
-        
+        soup.SetActive(false);
     }
 
     // Update is called once per frame
@@ -27,6 +29,8 @@ public class CookingScript : MonoBehaviour
         {
             Destroy(collision.gameObject);
             cooked = true;
+            water.SetActive(false);
+            soup.SetActive(true);
             Debug.Log("cooked the crab");
         }
         if (collision.gameObject.CompareTag("Grabbable")&&cooked){

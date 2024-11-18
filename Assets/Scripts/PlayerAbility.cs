@@ -90,6 +90,28 @@ public class PlayerAbility : MonoBehaviour
             Vector3 positionDiff = targetPosition-grabbedObject.transform.position;
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
             rb.AddForce(positionDiff*4.0f/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
+            if (positionDiff.x < 0.2 && positionDiff.x > -0.2 && positionDiff.y < 0.2 && positionDiff.y > -0.2 && positionDiff.z < 0.2 && positionDiff.z > -0.2)
+            {
+                rb.velocity = new Vector3(0, 0, 0);
+                if (grabbedObject.transform.name =="Bowl")
+                {
+                    if (grabbedObject.GetComponent<BowlScript>().isWallCollide() == false)
+                    {
+                        grabbedObject.transform.position = targetPosition;
+                    }
+                }
+                else if (grabbedObject.transform.name == "crabComplex")
+                {
+                    if (grabbedObject.GetComponent<FireCrabMoveScript>().isWallCollide() == false)
+                    {
+                        grabbedObject.transform.position = targetPosition;
+                    }
+                }
+                else
+                {
+                    grabbedObject.transform.position = targetPosition;
+                }
+            }
         }
         
     }

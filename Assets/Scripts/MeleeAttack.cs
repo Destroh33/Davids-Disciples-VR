@@ -26,15 +26,21 @@ public class MeleeAttack : MonoBehaviour
     }
     void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("collision");
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.GetComponent<EntityHealthAndDmg>().TakeDamage(50);
         }
         if (collision.gameObject.CompareTag("Burnable") && fire){
+            Debug.Log("burn");
             collision.GetComponent<BurnScript>().Burn();
         }
         if (collision.gameObject.CompareTag("Button")){
             switchAirMoving();
+        }
+        if (collision.gameObject.CompareTag("Crab"))
+        {
+            collision.GetComponent<FireCrabMoveScript>().Die();
         }
     }
     void switchAirMoving()
