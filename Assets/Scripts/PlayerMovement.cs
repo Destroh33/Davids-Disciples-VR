@@ -75,6 +75,14 @@ public class PlayerMovement : MonoBehaviour
             keyCount++;
         }
     }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            grounded = true;
+            dubjump = true;
+        }
+    }
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
