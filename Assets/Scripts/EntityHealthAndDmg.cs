@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 public class EntityHealthAndDmg : MonoBehaviour
 {
     [SerializeField] int maxHealth;
-    private int currentHealth;
+    public int currentHealth;
     [SerializeField] bool player;
+
+    EnemyBehaviors enemyBehaviors;
+
     void Start()
     {
         currentHealth = maxHealth;
+        enemyBehaviors = GetComponent<EnemyBehaviors>();
     }
     public void TakeDamage(int damage)
     {
@@ -31,6 +35,11 @@ public class EntityHealthAndDmg : MonoBehaviour
             {
                 SceneManager.LoadScene("Game Over");
                 Cursor.lockState = CursorLockMode.None;
+            }
+            if(!player)
+            {
+                enemyBehaviors.OnDeath();
+                Debug.Log(" enemy died");
             }
         }
     }

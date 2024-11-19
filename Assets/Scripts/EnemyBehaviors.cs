@@ -15,8 +15,10 @@ public class EnemyBehaviors : MonoBehaviour
     private float chaseRange = 5f;
     private bool isChasing = false;
     [SerializeField] Transform[] walkPoints;
+    EnemySpawner enemySpawner; 
 
-    private int currentIndex = 0; 
+    public int currentIndex; 
+    // public int spawnPoint;
 
     private AILerp ai;
     
@@ -28,8 +30,8 @@ public class EnemyBehaviors : MonoBehaviour
     void Update() 
     {
         // Debug.Log(currentIndex);
-        if (isChasing) { Debug.Log("Chasing player"); }
-        else { Debug.Log("Patrolling"); }   
+        // if (isChasing) { Debug.Log("Chasing player"); }
+        // else { Debug.Log("Patrolling"); }   
         if (playerContact && canAttack)
         {
             Attack();
@@ -66,29 +68,13 @@ public class EnemyBehaviors : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         tr = GetComponent<Transform>();
         t = FindObjectOfType<PlayerMovement>().transform;
+        enemySpawner = FindObjectOfType<EnemySpawner>();
 
     
         ai.destination = walkPoints[currentIndex].position;
 
     }
-    // void setDirection()
-    // {
-    //     tr.LookAt(t.position, tr.up);
-    //     tr.rotation = new Quaternion(tr.rotation.x, 0f, tr.rotation.z, 0f);
-    // }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-    //     setDirection();
-    //     //Debug.Log(t.position);
-    //     rb.velocity = tr.forward*speed;
-    //     if (playerContact && canAttack)
-    //     {
-    //         Attack();
-    //     }
-
-    // }
     void Attack()
     {
         player.GetComponent<EntityHealthAndDmg>().TakeDamage(100);
@@ -115,23 +101,19 @@ public class EnemyBehaviors : MonoBehaviour
         }
     }
 
-    void Patrol(){
-        //  Debug.Log("in patrol");
+    void Patrol()
+    {
         float distanceToWaypoint = Vector3.Distance(transform.position, walkPoints[currentIndex].position);
-        // Debug.Log("Enemy Position: " + transform.position + " | Checkpoint: " + walkPoints[currentIndex].position + " | Distance: " + distanceToWaypoint);
         if (distanceToWaypoint < 6f)  
         {
-            Debug.Log("in the if sttement");
-            currentIndex++;
-            if (currentIndex >= walkPoints.Length)
-            {
-                Debug.Log("in the if sttement 2s");
-                currentIndex = 0; 
-            }
-
+            currentIndex = Random.Range(0, walkPoints.Length);  
+            Debug.Log("new index:" + currentIndex);
             ai.destination = walkPoints[currentIndex].position;
         }
+    }
 
-
+    public void OnDeath()
+    {
+        enemySpawner.RespawnEnemies();
     }
 }
