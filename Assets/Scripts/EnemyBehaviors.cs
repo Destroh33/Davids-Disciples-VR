@@ -106,7 +106,7 @@ public class EnemyBehaviors : MonoBehaviour
         float distanceToWaypoint = Vector3.Distance(transform.position, walkPoints[currentIndex].position);
         if (distanceToWaypoint < 6f)  
         {
-            currentIndex = Random.Range(0, walkPoints.Length);  
+            currentIndex = Random.Range(0, walkPoints.Length-1);  
             Debug.Log("new index:" + currentIndex);
             ai.destination = walkPoints[currentIndex].position;
         }

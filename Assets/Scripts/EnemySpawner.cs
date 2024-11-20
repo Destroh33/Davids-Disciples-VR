@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void RespawnEnemies()
     {
-        GameObject enemy = Instantiate(enemyPrefab, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPoints[Random.Range(0, spawnPoints.Length-1)].position, Quaternion.identity);
         // spawnedEnemies[index] = enemy;
         Debug.Log("enemy respawned");
 
