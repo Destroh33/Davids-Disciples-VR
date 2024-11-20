@@ -46,15 +46,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (grounded && !watered)
         {
-            rb.AddForce(new Vector3(0, 200, 0));
+            rb.AddForce(new Vector3(0, 10000, 0));
         }
         if (!grounded && dubjump && player.GetComponent<PlayerAbility>().GetAbilityVal() == 3)
         {
-            rb.AddForce(new Vector3(0, 200, 0));
+            rb.AddForce(new Vector3(0, 10000, 0));
             dubjump = false;
         }
         if(watered)
-            rb.AddForce(new Vector3(0, 50, 0));
+            rb.AddForce(new Vector3(0, 2500, 0));
 
     }
     void OnMelee()

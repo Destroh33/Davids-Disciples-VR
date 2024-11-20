@@ -87,14 +87,14 @@ public class PlayerAbility : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isHolding && grabbedObject != null)
         {
             Vector3 targetPosition = melee.transform.position /** 3.2f*/; 
             Vector3 positionDiff = targetPosition-grabbedObject.transform.position;
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            rb.AddForce(positionDiff*4.0f/* (cam.transform.forward - (grabOffset - cam.transform.position))*/);
+            rb.velocity = positionDiff*4.0f/* (cam.transform.forward - (grabOffset - cam.transform.position))*/;
             if (positionDiff.x < 0.2 && positionDiff.x > -0.2 && positionDiff.y < 0.2 && positionDiff.y > -0.2 && positionDiff.z < 0.2 && positionDiff.z > -0.2)
             {
                 rb.velocity = new Vector3(0, 0, 0);

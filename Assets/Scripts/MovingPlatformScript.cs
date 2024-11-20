@@ -23,7 +23,7 @@ public class MovingPlatformScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         moving = melee.GetComponent<MeleeAttack>().isAirMoving();
         if (moving)
