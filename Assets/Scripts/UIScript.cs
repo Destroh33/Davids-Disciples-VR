@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class HealthUIScript : MonoBehaviour
+public class UIScript : MonoBehaviour
 {
     [SerializeField] GameObject player;
     //[SerializeField] TMP_Text healthText;
@@ -16,6 +16,6 @@ public class HealthUIScript : MonoBehaviour
     void Update()
     {
         //healthText.text = "Health: " + player.GetComponent<EntityHealthAndDmg>().GetHealth();
-        keyText.text = "Keys: " + player.GetComponent<PlayerMovement>().keyCount;
+        keyText.text = ""+player.GetComponent<PlayerMovement>().keyCount;
     }
 }
