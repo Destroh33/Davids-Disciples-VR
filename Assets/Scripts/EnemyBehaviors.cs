@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using Unity.AI;
+using UnityEngine.AI;
 
 public class EnemyBehaviors : MonoBehaviour
 {
@@ -16,15 +18,16 @@ public class EnemyBehaviors : MonoBehaviour
     private bool isChasing = false;
     [SerializeField] Transform[] walkPoints;
     EnemySpawner enemySpawner; 
+    [SerializeField] NavMeshAgent agent; 
 
     public int currentIndex; 
     // public int spawnPoint;
 
-    private AILerp ai;
+    // private AILerp ai;
     
     void Awake() 
     {
-        ai = GetComponent<AILerp>(); 
+        // ai = GetComponent<AILerp>(); 
     }
 
     void Update() 
@@ -41,19 +44,22 @@ public class EnemyBehaviors : MonoBehaviour
             if(!isChasing)
             {
                 isChasing = true;
-                ai.destination = player.transform.position;
+                agent.destination = player.transform.position;
+                // ai.destination = player.transform.position;
 
             }
         }
         if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= chaseRange)
         {
-            ai.destination = player.transform.position;
+            // ai.destination = player.transform.position;
+            agent.destination = player.transform.position;  
         }
         if(isChasing && Vector3.Distance(transform.position, player.transform.position) > chaseRange)
         {
             Debug.Log("in isChasing");
             isChasing = false; 
-            ai.destination = walkPoints[currentIndex].transform.position;
+            // ai.destination = walkPoints[currentIndex].transform.position;
+            agent.destination = walkPoints[currentIndex].transform.position;
         }
         else
         {
@@ -69,9 +75,11 @@ public class EnemyBehaviors : MonoBehaviour
         tr = GetComponent<Transform>();
         t = FindObjectOfType<PlayerMovement>().transform;
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        Debug.Log(agent);
 
     
-        ai.destination = walkPoints[currentIndex].position;
+        // ai.destination = walkPoints[currentIndex].position;
+        agent.destination = walkPoints[currentIndex].position;
 
     }
 
@@ -108,7 +116,8 @@ public class EnemyBehaviors : MonoBehaviour
         {
             currentIndex = Random.Range(0, walkPoints.Length-1);  
             Debug.Log("new index:" + currentIndex);
-            ai.destination = walkPoints[currentIndex].position;
+            // ai.destination = walkPoints[currentIndex].position;
+            agent.destination = walkPoints[currentIndex].position; 
         }
     }
 
