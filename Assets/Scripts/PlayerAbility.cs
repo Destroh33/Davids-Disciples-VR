@@ -13,10 +13,11 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] GameObject melee;
 
     bool abilityActive,cooldown = true;
-    //Ray ray;
     //0 - none
     //1 - ice
     // 2 - earth 
+    // 3 - fire
+    // 4 - air
     Camera cam;
     private GameObject grabbedObject = null; 
     private Vector3 grabOffset; 
@@ -38,20 +39,25 @@ public class PlayerAbility : MonoBehaviour
 
     private void Awake()
     {
-        abilityActivate.Enable();
+        abilityActivate.Enable();      
+    }
+    private void Update()
+    {
         switch (abilityVal)
         {
             case 0:
                 break;
             case 1: //ice
                 IceGrow currIce = null;
-                abilityActivate.started += _ => {
-                    if(cooldown)
+
+                if (abilityActivate.triggered)
+                {
+                    if (cooldown)
                     {
                         cooldown = false;
                         Debug.Log("ice");
                         int layerMask = (1 << 4) + 1;
-                    
+
                         RaycastHit hit;
                         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
                         {
@@ -65,28 +71,25 @@ public class PlayerAbility : MonoBehaviour
                         }
                         Invoke("resetCooldown", 1f);
                     }
-                };
-                break; 
-                case 2:
-                case 4:
+                }
+                break;
+            case 2:
+            case 4:
                 {
-                    abilityActivate.started += _ => {
-                        Debug.Log("earth");
+                    if (abilityActivate.ReadValueAsObject() != null && !isHolding)
+                    {
+                        Debug.Log("EATH");
                         OnGrab();
-                    };
-                    abilityActivate.canceled += _ => OnLetGo();
-
+                    }
+                    else if(abilityActivate.ReadValueAsObject()  == null && isHolding)
+                    {
+                        OnLetGo();
+                    }
                 };
                 break;
-            
+
         }
-
-        
-        
- 
-        
     }
-
     void FixedUpdate()
     {
         if (isHolding && grabbedObject != null)
