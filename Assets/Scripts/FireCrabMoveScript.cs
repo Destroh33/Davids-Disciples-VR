@@ -9,46 +9,62 @@ public class FireCrabMoveScript : MonoBehaviour
     int walkDir;
     Animator anim;
     Rigidbody rb;
-    Transform tr;
+    int bh;
     private bool wallCollide = false;
     bool dead = false;
     private void Awake()
     {
-
-        tr = GetComponent<Transform>();
+        StartCoroutine(Behavior());
+        //tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         walkDir = 1;
     }
     private void Update()
     {
-        Walk();
+        switch (bh) {
+            case 0:
+            case 1:
+                Walk();
+                break;
+            case 2:
+                Turn();
+                break;
+        
+        }
+
 
     }
 
     private void Walk()
     {
         anim.SetInteger("walkDir", walkDir);
-        switch (/*Random.Range(0, 1)*/walkDir)
-        {
-            case 0:
-                break;
-            case 1:
-                rb.MovePosition(rb.position + new Vector3(0, 0, -0.02f));
+        //for (int i = 0; i < Random.Range(0, 180); i++)
+        //{
+         
+            switch (/*Random.Range(0, 1)*/walkDir)
+            {
+                //case 0:
+                //    break;
+                case 1:
+                rb.velocity = Vector3.left * 5;
+                    //rb.MovePosition(rb.position + new Vector3(0, 0, -0.02f));
 
-                break;
-            case 2:
+                    break;
+                case 2:
+                rb.velocity = Vector3.right * 5;
                 //rb.AddForce(0, 0, -15 * Time.deltaTime);
-                rb.MovePosition(rb.position + new Vector3(0, 0, 0.02f));
+                //rb.MovePosition(rb.position + new Vector3(0, 0, 0.02f));
                 break;
 
-        }
+            }
+        //}
 
     }
     public void Die()
     {
         walkDir = 0;
-        tr.localEulerAngles = new Vector3 (180, tr.rotation.y, tr.rotation.z);
+        transform.localEulerAngles = new Vector3 (180, transform.rotation.y, transform.rotation.z);
         dead = true;
     }
     void OnCollisionEnter(Collision collision)
@@ -70,6 +86,35 @@ public class FireCrabMoveScript : MonoBehaviour
         }
 
     }
+
+    IEnumerator Behavior()
+    {
+        while (health > 0)
+        {
+            switch (Random.Range(0, 3))
+            {
+                case 0: //move left
+                    walkDir = 1;
+                    Debug.Log("move left");
+                    bh = 0;
+                    break;
+                case 1: //move right
+                    walkDir = 2;
+                    Debug.Log("move right");
+                    bh = 1;
+                    break;
+                case 2:
+                    bh = 2;
+                    Debug.Log("turn");
+                    yield return null;
+                    break;
+
+            }
+            yield return new WaitForSeconds(Random.Range(1.5f, 6f));
+
+        }
+    }
+
     public bool isWallCollide()
     {
         return wallCollide;
@@ -83,6 +128,8 @@ public class FireCrabMoveScript : MonoBehaviour
     }
     private void Turn()
     {
-        transform.rotation = new Quaternion(0, (Random.Range(0, 4) * 90), 0, 0);
+        float tVal = (Random.Range(0, 4) * 45);
+        Debug.Log(tVal);
+        transform.rotation = new Quaternion(0,tVal , 0, 0);
     }
 }
