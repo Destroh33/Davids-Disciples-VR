@@ -81,5 +81,8 @@ public class FireCrabMoveScript : MonoBehaviour
             wallCollide = false;
         }
     }
-
+    private void Turn()
+    {
+        transform.rotation = new Quaternion(0, (Random.Range(0, 4) * 90), 0, 0);
+    }
 }
