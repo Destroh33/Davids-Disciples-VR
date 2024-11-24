@@ -41,8 +41,8 @@ public class FireCrabMoveScript : MonoBehaviour
         anim.SetInteger("walkDir", walkDir);
         //for (int i = 0; i < Random.Range(0, 180); i++)
         //{
-         
-            switch (/*Random.Range(0, 1)*/walkDir)
+         //transform.
+            switch(/*Random.Range(0, 1)*/walkDir)
             {
                 //case 0:
                 //    break;

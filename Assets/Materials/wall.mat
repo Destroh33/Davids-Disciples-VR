@@ -44,12 +44,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 2800000, guid: e1c54661df8f499469355293390a78fc, type: 3}
-        m_Scale: {x: 3, y: 3}
+        m_Scale: {x: 0.06, y: 0.3}
+        m_Offset: {x: 0, y: 0.03}
+    - _FalloffTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: f4a28790aacc064429f0ecdd8b67d41d, type: 3}
-        m_Scale: {x: 3, y: 3}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 0.06, y: 0.3}
+        m_Offset: {x: 0, y: 0.03}
     - _MetallicGlossMap:
         m_Texture: {fileID: 2800000, guid: 897270d1f2fe0314faac740ff659d0fc, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -60,6 +64,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 2800000, guid: e3fd9e84778cc3544912b995c97c37a7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TerrainHolesTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -83,4 +99,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _NotVisibleColor: {r: 0, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
