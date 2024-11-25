@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("wata");
+        
         if(other.gameObject.layer == 4)
         {
             watered = true;
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("wataaa");
+        
         if (other.gameObject.layer == 4)
         {
             watered = false;

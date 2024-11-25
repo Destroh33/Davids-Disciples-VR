@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CookingScript : MonoBehaviour
 {
+    private bool crabbed = false;
     private bool cooked = false;
     [SerializeField] GameObject log;
     [SerializeField] GameObject water;
@@ -24,7 +25,16 @@ public class CookingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (log.GetComponent<BurnScript>().GetBurning() && crabbed)
+        {
+            gameObject.tag = "Grabbable";
+            //Destroy(collision.gameObject);
+            cooked = true;
+            water.SetActive(false);
+            soup.SetActive(true);
+            Debug.Log("cooked the crab");
+            crabbed = false;
+        }
     }
     public bool GetCooked()
     {
@@ -32,13 +42,12 @@ public class CookingScript : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Crab") && log.GetComponent<BurnScript>().GetBurning())
+        if (collision.gameObject.CompareTag("Crab"))
         {
+            //GetComponent<Rigidbody>().isKinematic = false;
+            
             Destroy(collision.gameObject);
-            cooked = true;
-            water.SetActive(false);
-            soup.SetActive(true);
-            Debug.Log("cooked the crab");
+            crabbed = true;
         }
         
         if (collision.gameObject.CompareTag("FireGate") && cooked)
