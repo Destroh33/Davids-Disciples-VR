@@ -11,6 +11,7 @@ public class BurnScript : MonoBehaviour
     [SerializeField] GameObject fire4;
 
     [SerializeField] GameObject steam;
+    [SerializeField] bool destructible;
     bool isBurning = false;
     // Start is called before the first frame update
     void Start()
@@ -24,14 +25,18 @@ public class BurnScript : MonoBehaviour
         fire4.SetActive(true);
         steam.SetActive(true);
         isBurning = true;
+        if (destructible)
+            Invoke("Burnt", 5f);
+            //Destroy();
     }
     public bool GetBurning()
     {
         return isBurning;
     }
     // Update is called once per frame
-    void Update()
+   private void Burnt()
     {
-        
+        Debug.Log("burnt");
+        Destroy(gameObject);
     }
 }
