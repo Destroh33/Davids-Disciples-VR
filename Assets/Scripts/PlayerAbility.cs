@@ -11,6 +11,8 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] IceGrow ice;
     [SerializeField] InputAction abilityActivate;
     [SerializeField] GameObject melee;
+    [SerializeField] GameObject dave;
+    Animator animator;
 
     bool abilityActive,cooldown = true;
     //0 - none
@@ -25,6 +27,7 @@ public class PlayerAbility : MonoBehaviour
 
     void Start()
     {
+        animator = dave.GetComponent<Animator>();
         cam = Camera.main;
     }
 
@@ -54,6 +57,7 @@ public class PlayerAbility : MonoBehaviour
                 {
                     if (cooldown)
                     {
+                        animator.SetTrigger("cast");
                         cooldown = false;
                         Debug.Log("ice");
                         int layerMask = (1 << 4) + 1;
@@ -79,7 +83,8 @@ public class PlayerAbility : MonoBehaviour
                     
                     if (abilityActivate.ReadValueAsObject() != null && !isHolding)
                     {
-                        Debug.Log("EARTH");
+                        animator.SetTrigger("cast");
+                        //Debug.Log("EARTH");
                         OnGrab();
                     }
                     else if(abilityActivate.ReadValueAsObject()  == null && isHolding)

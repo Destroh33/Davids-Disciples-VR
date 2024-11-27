@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,10 +15,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject player;
     private Vector2 tempVec;
     [SerializeField] GameObject melee;
+    [SerializeField] GameObject dave;
     float time;
     float lastSwingTime;
-    bool grounded = true,watered = false;
+    bool grounded = true,watered = false,meleecooldown = true;
     public int keyCount = 0;
+    Animator anim;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
     bool dubjump = true;
@@ -30,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Start()
     {
+        anim = dave.GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
         melee.SetActive(false);
         rb = GetComponent<Rigidbody>();
@@ -59,8 +63,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnMelee()
     {
-        melee.SetActive(true);
-        lastSwingTime = time;
+        if (meleecooldown)
+        {
+            melee.SetActive(true);
+            lastSwingTime = time;
+            anim.SetTrigger("attack");
+            meleecooldown = false;
+            Invoke("ResetCooldown", 0.7f);
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -162,5 +172,9 @@ public class PlayerMovement : MonoBehaviour
         {
             movementVector = new Vector2(0, 0);
         }
+    }
+    private void ResetCooldown()
+    {
+        meleecooldown = true;
     }
 }
