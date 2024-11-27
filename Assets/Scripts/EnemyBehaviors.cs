@@ -21,20 +21,9 @@ public class EnemyBehaviors : MonoBehaviour
     [SerializeField] NavMeshAgent agent; 
 
     public int currentIndex; 
-    // public int spawnPoint;
-
-    // private AILerp ai;
-    
-    void Awake() 
-    {
-        // ai = GetComponent<AILerp>(); 
-    }
-
+  
     void Update() 
-    {
-        // Debug.Log(currentIndex);
-        // if (isChasing) { Debug.Log("Chasing player"); }
-        // else { Debug.Log("Patrolling"); }   
+    {  
         if (playerContact && canAttack)
         {
             Attack();
@@ -45,20 +34,17 @@ public class EnemyBehaviors : MonoBehaviour
             {
                 isChasing = true;
                 agent.destination = player.transform.position;
-                // ai.destination = player.transform.position;
 
             }
         }
         if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= chaseRange)
         {
-            // ai.destination = player.transform.position;
             agent.destination = player.transform.position;  
         }
         if(isChasing && Vector3.Distance(transform.position, player.transform.position) > chaseRange)
         {
             Debug.Log("in isChasing");
             isChasing = false; 
-            // ai.destination = walkPoints[currentIndex].transform.position;
             agent.destination = walkPoints[currentIndex].transform.position;
         }
         else
@@ -75,10 +61,9 @@ public class EnemyBehaviors : MonoBehaviour
         tr = GetComponent<Transform>();
         t = FindObjectOfType<PlayerMovement>().transform;
         enemySpawner = FindObjectOfType<EnemySpawner>();
-        Debug.Log(agent);
+        // Debug.Log(agent);
 
     
-        // ai.destination = walkPoints[currentIndex].position;
         agent.destination = walkPoints[currentIndex].position;
 
     }
@@ -100,6 +85,15 @@ public class EnemyBehaviors : MonoBehaviour
             player = collision.gameObject;
             playerContact = true;
         }
+        // else if (collision.gameObject.CompareTag("Enemy"))
+        // {
+        //     Debug.Log("enemy collide");
+        //     Collider otherEnemyCollider = collision.gameObject.GetComponent<Collider>();
+        //     if (otherEnemyCollider != null)
+        //         {
+        //             Physics.IgnoreCollision(otherEnemyCollider, GetComponent<Collider>());
+        //         }
+        // }
     }
     void OnCollisionExit(Collision collision)
     {
@@ -116,7 +110,6 @@ public class EnemyBehaviors : MonoBehaviour
         {
             currentIndex = Random.Range(0, walkPoints.Length-1);  
             Debug.Log("new index:" + currentIndex);
-            // ai.destination = walkPoints[currentIndex].position;
             agent.destination = walkPoints[currentIndex].position; 
         }
     }

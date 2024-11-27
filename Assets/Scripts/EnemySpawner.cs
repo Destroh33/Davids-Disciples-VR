@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemies() 
     {
-        // spawns one enemy at each checkpoint 
+        // spawns one enemy at certain checkpoints
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             GameObject enemy = Instantiate(enemyPrefab, spawnPoints[i].position, Quaternion.identity);
