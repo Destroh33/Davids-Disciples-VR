@@ -83,12 +83,13 @@ public class PlayerAbility : MonoBehaviour
                     
                     if (abilityActivate.ReadValueAsObject() != null && !isHolding)
                     {
-                        animator.SetTrigger("cast");
+                        
                         //Debug.Log("EARTH");
                         OnGrab();
                     }
                     else if(abilityActivate.ReadValueAsObject()  == null && isHolding)
                     {
+                        
                         OnLetGo();
                     }
                 };
@@ -130,6 +131,7 @@ public class PlayerAbility : MonoBehaviour
         }
         if(grabbedObject == null && isHolding)
         {
+            animator.SetBool("ecast", false);
             isHolding = false;
         }
         
@@ -149,7 +151,8 @@ public class PlayerAbility : MonoBehaviour
             {
                 if (hit.transform.gameObject.CompareTag("Grabbable")|| hit.transform.gameObject.CompareTag("Crab")) 
                 {
-                   // Debug.Log("Hit: " + hit.transform.name);
+                    animator.SetBool("ecast", true);
+                    // Debug.Log("Hit: " + hit.transform.name);
                     grabbedObject = hit.transform.gameObject;
                     Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
                     grabOffset = rb.transform.position;
@@ -167,6 +170,7 @@ public class PlayerAbility : MonoBehaviour
     private void OnLetGo(){
         if (isHolding && grabbedObject != null)
         {
+            animator.SetBool("ecast", false);
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
             rb.useGravity = true;
             grabbedObject = null;
