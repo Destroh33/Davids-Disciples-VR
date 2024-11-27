@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] private Vector2 sensitivity;
+    public static CameraScript Instance;
+    [SerializeField] public Vector2 sensitivity;
     private Vector2 rotation;
     [SerializeField] private float maxVertAngle;
     [SerializeField] Transform t;
+    [SerializeField] private ButtonKey buttonKey;
     // Start is called before the first frame update
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);  
+        }
+    }
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -19,11 +32,26 @@ public class CameraScript : MonoBehaviour
         Vector2 input = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         return input;
     }
+
+    public void SetSensitivity(float x, float y)
+    {
+        sensitivity.x = x;
+        sensitivity.y = y;
+    }
     // Update is called once per frame
     void Update()
     {
         transform.position = t.position;
         rotation += GetMouseInput() * sensitivity;
+        // GameObject optionsMenu = GameObject.Find("Options");
+        if (buttonKey.OptionsUp)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        if (!buttonKey.OptionsUp)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         while (rotation.x >= 360.00f)
         {
             rotation.x -= 360.00f;
