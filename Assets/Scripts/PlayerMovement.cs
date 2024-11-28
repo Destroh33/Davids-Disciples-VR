@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
     bool dubjump = true;
+    private EntityHealthAndDmg playerHealth;
 
     private Vector2 GetMouseInput()
     {
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rotation = new Vector2(0, 0);
         rb.velocity = new Vector3(0, 0, 0);
+        playerHealth = GetComponent<EntityHealthAndDmg>();
     }
 
     void OnMove(InputValue value)
@@ -83,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
             keyCount++;
+            playerHealth.GainHealth();
         }
     }
     void OnCollisionStay(Collision collision)

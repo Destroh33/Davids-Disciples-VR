@@ -25,6 +25,11 @@ public class EntityHealthAndDmg : MonoBehaviour
         return currentHealth;
     }
 
+    public void GainHealth()
+    {
+        currentHealth = maxHealth; 
+    }
+
     // Update is called once per frame
     void Update()
     {
