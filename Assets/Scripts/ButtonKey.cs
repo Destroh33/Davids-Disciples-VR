@@ -15,6 +15,7 @@ public class ButtonKey : MonoBehaviour
                 if (optionsMenu != null)
                 {
                     optionsMenu.SetActive(true); 
+                    Cursor.lockState = CursorLockMode.None;
                 }
                 GetComponent<Button>().onClick.Invoke();
                 OptionsUp = true;
@@ -24,6 +25,7 @@ public class ButtonKey : MonoBehaviour
                 if (optionsMenu != null)
                 {
                     optionsMenu.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
                 }
                 OptionsUp = false;
             }

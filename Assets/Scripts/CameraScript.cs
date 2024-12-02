@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraScript : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class CameraScript : MonoBehaviour
     private Vector2 rotation;
     [SerializeField] private float maxVertAngle;
     [SerializeField] Transform t;
-    [SerializeField] private ButtonKey buttonKey;
+    // [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Slider sensitivitySlider;
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,32 +28,26 @@ public class CameraScript : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         rotation = new Vector2(0, 0);
+        sensitivitySlider.onValueChanged.AddListener(OnSensitivityChanged);
     }
+    private void OnSensitivityChanged(float value)
+    {
+         sensitivity.x = value;
+         sensitivity.y = value; 
+         Debug.Log(sensitivity);
+    }
+
     private Vector2 GetMouseInput()
     {
         Vector2 input = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         return input;
     }
 
-    public void SetSensitivity(float x, float y)
-    {
-        sensitivity.x = x;
-        sensitivity.y = y;
-    }
     // Update is called once per frame
     void Update()
     {
         transform.position = t.position;
         rotation += GetMouseInput() * sensitivity;
-        // GameObject optionsMenu = GameObject.Find("Options");
-        if (buttonKey.OptionsUp)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        if (!buttonKey.OptionsUp)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
         while (rotation.x >= 360.00f)
         {
             rotation.x -= 360.00f;
