@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class HealthbarScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject entity;
+    [SerializeField] GameObject player; 
     public Slider slider;
     bool playerBool = false;
     void Start()
     {
-        if(player.transform.name == "Player")
+        if(entity.transform.name == "Player")
         {
             playerBool = true;
         }    
@@ -19,10 +20,10 @@ public class HealthbarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerBool)
+        if (!playerBool &&player.activeSelf)
         {
             this.transform.LookAt(Camera.main.transform);
         }
-        slider.value = player.GetComponent<EntityHealthAndDmg>().GetHealth() / 2.0f;
+        slider.value = entity.GetComponent<EntityHealthAndDmg>().GetHealth() / 2.0f;
     }
 }

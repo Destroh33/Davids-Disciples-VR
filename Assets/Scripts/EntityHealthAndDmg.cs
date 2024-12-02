@@ -35,7 +35,7 @@ public class EntityHealthAndDmg : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
             if (player)
             {
                 SceneManager.LoadScene("Game Over");

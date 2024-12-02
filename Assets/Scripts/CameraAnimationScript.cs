@@ -6,6 +6,8 @@ public class CameraAnimationScript : MonoBehaviour
 {
     [SerializeField] GameObject Camera1;
     [SerializeField] GameObject Camera2;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject playerUI;
     public int Manager;
     // Start is called before the first frame update
     public void ManageCam()
@@ -28,11 +30,15 @@ public class CameraAnimationScript : MonoBehaviour
     void Cam1()
     {
         Camera1.SetActive(true);
+        player.SetActive(true);
+        playerUI.SetActive(true);
         Camera2.SetActive(false);
     }
     void Cam2()
     {
         Camera1.SetActive(false);
+        player.SetActive(false);
+        playerUI.SetActive(false);
         Camera2.SetActive(true);
     }
     // Update is called once per frame

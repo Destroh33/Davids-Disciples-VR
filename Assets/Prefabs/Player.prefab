@@ -121,7 +121,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734370059291472738}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 50
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -187,6 +187,7 @@ MonoBehaviour:
   maxVertAngle: 90
   player: {fileID: 1734370059291472738}
   melee: {fileID: 0}
+  dave: {fileID: 0}
   keyCount: 0
 --- !u!114 &8427422668293452443
 MonoBehaviour:
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 200
+  currentHealth: 0
   player: 1
 --- !u!114 &-120766973501744381
 MonoBehaviour:
@@ -246,3 +248,4 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   melee: {fileID: 0}
+  dave: {fileID: 0}

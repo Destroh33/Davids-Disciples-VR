@@ -6,9 +6,10 @@ public class AbilityTriggerScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] int AbilityValSet;
+    [SerializeField] GameObject ImageUI;
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -26,6 +27,9 @@ public class AbilityTriggerScript : MonoBehaviour
             else
             {
                 collision.gameObject.GetComponent<PlayerAbility>().SetAbilityVal(AbilityValSet);
+
+                ImageUI.GetComponent<Animator>().SetTrigger("change");
+
             }
             Debug.Log("Ability val changed");
         }

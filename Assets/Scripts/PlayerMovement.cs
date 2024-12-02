@@ -135,6 +135,22 @@ public class PlayerMovement : MonoBehaviour
         {
             melee.SetActive(false);
         }
+        while (rotation.x >= 360.00f)
+        {
+            rotation.x -= 360.00f;
+        }
+        while (rotation.x < 0.00f)
+        {
+            rotation.x += 360.00f;
+        }
+        if (rotation.y > 90)
+        {
+            rotation.y = 90;
+        }
+        else if (rotation.y < -90)
+        {
+            rotation.y = -90;
+        }
         rotation += GetMouseInput() * sensitivity;
         transform.localEulerAngles = new Vector3(0,rotation.x, 0);
         rb.velocity = new Vector3(speed * movementVector.x, rb.velocity.y, speed * movementVector.y);
