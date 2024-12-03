@@ -30,15 +30,17 @@ public class CameraAnimationScript : MonoBehaviour
     void Cam1()
     {
         Camera1.SetActive(true);
-        player.SetActive(true);
+        //player.SetActive(true);
         playerUI.SetActive(true);
         Camera2.SetActive(false);
+        Time.timeScale = 1;
     }
     void Cam2()
     {
         Camera1.SetActive(false);
-        player.SetActive(false);
+        //player.SetActive(false);
         playerUI.SetActive(false);
+        Time.timeScale = 0;
         Camera2.SetActive(true);
     }
     // Update is called once per frame

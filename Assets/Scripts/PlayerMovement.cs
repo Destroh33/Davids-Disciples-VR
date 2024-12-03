@@ -122,9 +122,10 @@ public class PlayerMovement : MonoBehaviour
             watered = false;
         }
     }
-    // Update is called once per frame
+        // Update is called once per frame
     void Update()
     {
+        
         //transform.forward = new Vector3(tr.forward.x, 0, tr.forward.z);
         time += Time.deltaTime;
         if (player.GetComponent<PlayerAbility>().GetAbilityVal() == 2)
