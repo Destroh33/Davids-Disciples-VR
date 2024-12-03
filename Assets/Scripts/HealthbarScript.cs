@@ -6,7 +6,8 @@ public class HealthbarScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject entity;
-    [SerializeField] GameObject player; 
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject playerUI;
     public Slider slider;
     bool playerBool = false;
     void Start()
@@ -20,7 +21,7 @@ public class HealthbarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerBool &&player.activeSelf)
+        if (!playerBool &&playerUI.activeSelf)
         {
             this.transform.LookAt(Camera.main.transform);
         }
