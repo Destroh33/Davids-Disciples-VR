@@ -13,6 +13,8 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] GameObject melee;
     [SerializeField] GameObject dave;
     Animator animator;
+    [SerializeField] GameObject fire1;
+    [SerializeField] GameObject fire2;
 
     bool abilityActive,cooldown = true;
     //0 - none
@@ -49,6 +51,9 @@ public class PlayerAbility : MonoBehaviour
         switch (abilityVal)
         {
             case 0:
+                fire1.SetActive(false);
+                fire2.SetActive(false);
+
                 break;
             case 1: //ice
                 IceGrow currIce = null;
@@ -77,8 +82,12 @@ public class PlayerAbility : MonoBehaviour
                     }
                 }
                 break;
-            case 2:
             case 4:
+
+                fire1.SetActive(true);
+                fire2.SetActive(true);
+                goto case 2; //gross!
+            case 2:
                 {
                     
                     if (abilityActivate.ReadValueAsObject() != null && !isHolding)
