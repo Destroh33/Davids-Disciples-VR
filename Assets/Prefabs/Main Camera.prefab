@@ -194,7 +194,7 @@ MonoBehaviour:
   sensitivity: {x: 5, y: 5}
   maxVertAngle: 90
   t: {fileID: 1256786410783957384, guid: b21fa20b3b74257479c2ee334c585b92, type: 3}
-  buttonKey: {fileID: 0}
+  sensitivitySlider: {fileID: 0}
 --- !u!1 &8354326435305959556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1067,10 @@ PrefabInstance:
       value: MeleeAttack
       objectReference: {fileID: 0}
     - target: {fileID: 7653247951486332792, guid: af3debf6842f5ca42a79423336c08b37, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4679052
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653247951486332792, guid: af3debf6842f5ca42a79423336c08b37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1076,7 +1080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7653247951486332792, guid: af3debf6842f5ca42a79423336c08b37, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 1.234
       objectReference: {fileID: 0}
     - target: {fileID: 7653247951486332792, guid: af3debf6842f5ca42a79423336c08b37, type: 3}
       propertyPath: m_LocalRotation.w
