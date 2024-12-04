@@ -18,8 +18,8 @@ public class EnemyBehaviors : MonoBehaviour
     private bool isChasing = false;
     [SerializeField] Transform[] walkPoints;
     EnemySpawner enemySpawner; 
-    [SerializeField] NavMeshAgent agent; 
-
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] Animator anim;
     public int currentIndex; 
   
     void Update() 
@@ -57,6 +57,7 @@ public class EnemyBehaviors : MonoBehaviour
     }
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         tr = GetComponent<Transform>();
         t = FindObjectOfType<PlayerMovement>().transform;
@@ -70,6 +71,7 @@ public class EnemyBehaviors : MonoBehaviour
 
     void Attack()
     {
+        anim.SetTrigger("Attack");
         player.GetComponent<EntityHealthAndDmg>().TakeDamage(100);
         canAttack = false;
         Invoke("Cooldown", 2f);
