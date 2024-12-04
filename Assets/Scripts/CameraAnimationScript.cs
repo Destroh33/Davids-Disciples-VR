@@ -33,6 +33,7 @@ public class CameraAnimationScript : MonoBehaviour
         //player.SetActive(true);
         playerUI.SetActive(true);
         Camera2.SetActive(false);
+        player.transform.localEulerAngles = new Vector3(-Camera1.transform.rotation.y, Camera1.transform.rotation.x, 0);
         Time.timeScale = 1;
     }
     void Cam2()

@@ -32,6 +32,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3087206981871107219}
+  - {fileID: 649378599327319084}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -130,11 +131,11 @@ Transform:
   m_GameObject: {fileID: 4892693339119805454}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -354.60114, y: -201.88, z: -17.45}
+  m_LocalPosition: {x: -358.35004, y: -199.01001, z: -17.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3087206981871107219}
+  m_Father: {fileID: 7198930531546847276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3460754345701053479
 Camera:
@@ -252,8 +253,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 649378599327319084}
+  m_Children: []
   m_Father: {fileID: 7198930531546847276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -335,4 +335,5 @@ MonoBehaviour:
   Camera1: {fileID: 0}
   Camera2: {fileID: 4892693339119805454}
   player: {fileID: 0}
+  playerUI: {fileID: 0}
   Manager: 0
