@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject dave;
     float time;
     float lastSwingTime;
+    [SerializeField] private Slider sensitivitySlider;
     bool grounded = true,watered = false,meleecooldown = true;
     public int keyCount = 0;
     public AudioSource swingSword;
@@ -45,6 +47,13 @@ public class PlayerMovement : MonoBehaviour
         playerHealth = GetComponent<EntityHealthAndDmg>();
         keyGain = GameObject.Find("Key Pickup").GetComponent<AudioSource>(); 
         swingSword = GameObject.Find("Swing Sword").GetComponent<AudioSource>();
+        sensitivitySlider.onValueChanged.AddListener(OnSensitivityChanged);
+    }
+    private void OnSensitivityChanged(float value)
+    {
+        sensitivity.x = value;
+        sensitivity.y = value;
+        Debug.Log(sensitivity);
     }
 
     void OnMove(InputValue value)
@@ -202,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
             movementVector = new Vector2(0, 0);
         }
     }
+
     private void ResetCooldown()
     {
         meleecooldown = true;

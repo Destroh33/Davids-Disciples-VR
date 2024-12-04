@@ -29,6 +29,7 @@ public class AbilityTriggerScript : MonoBehaviour
                 collision.gameObject.GetComponent<PlayerAbility>().SetAbilityVal(AbilityValSet);
 
                 ImageUI.GetComponent<Animator>().SetTrigger("change");
+                Destroy(this);
 
             }
             Debug.Log("Ability val changed");
