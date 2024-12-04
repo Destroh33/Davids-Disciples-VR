@@ -8,23 +8,51 @@ using UnityEngine.SceneManagement;
 public class Audio : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider; 
+    [SerializeField] Slider BGMSlider;
     private static Audio instance;  
     private AudioSource bgMusic; 
 
     void Start()
     {
-        volumeSlider.value = AudioListener.volume;  
+        volumeSlider.value = 1f;  
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        BGMSlider.onValueChanged.AddListener(OnBGMSChanged);
 
         bgMusic = GameObject.Find("Audio Source").GetComponent<AudioSource>(); 
-
-        UpdateAudioVolumes();
+        BGMSlider.value = 1f;
     }
 
     private void OnVolumeChanged(float volume)
+    {  
+        foreach (Transform child in transform)
+        {
+            AudioSource childAudioSource = child.GetComponent<AudioSource>(); 
+            
+            if (childAudioSource != null)
+            {
+                if (child.CompareTag("SFX"))
+                {
+                childAudioSource.volume = volume; 
+                } 
+            }
+        }
+    }
+
+    private void OnBGMSChanged(float volume)
     {
-        AudioListener.volume = volume;  
-        UpdateAudioVolumes();  
+        foreach (Transform child in transform)
+        {
+            AudioSource childAudioSource = child.GetComponent<AudioSource>(); 
+            
+            if (childAudioSource != null)
+            {
+                if (child.CompareTag("BGM"))
+                {
+                childAudioSource.volume = volume; 
+                } 
+            }
+        }
+
     }
 
     void Awake()
@@ -40,18 +68,6 @@ public class Audio : MonoBehaviour
         }
     }
 
-    private void UpdateAudioVolumes()
-    {
-        foreach (Transform child in transform)
-        {
-            AudioSource childAudioSource = child.GetComponent<AudioSource>(); 
-            
-            if (childAudioSource != null)
-            {
-                childAudioSource.volume = AudioListener.volume; 
-            }
-        }
-    }
 
     void Update(){
         if (bgMusic != null && SceneManager.GetActiveScene().name == "MainMap")

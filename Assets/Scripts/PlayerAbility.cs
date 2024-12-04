@@ -18,6 +18,7 @@ public class PlayerAbility : MonoBehaviour
     public AudioSource iceSound;
     public AudioSource earthSound; 
     public AudioSource waterFalls; 
+    public AudioSource forestSounds; 
 
     bool abilityActive,cooldown = true;
     //0 - none
@@ -37,6 +38,7 @@ public class PlayerAbility : MonoBehaviour
         iceSound = GameObject.Find("Ice Ability").GetComponent<AudioSource>();
         earthSound = GameObject.Find("Earth Ability").GetComponent<AudioSource>();
         waterFalls = GameObject.Find("Water Stream").GetComponent<AudioSource>();
+        forestSounds = GameObject.Find("Forest Sounds").GetComponent<AudioSource>();
     }
 
     public int GetAbilityVal()
@@ -60,6 +62,10 @@ public class PlayerAbility : MonoBehaviour
                 if (waterFalls.isPlaying)  
                 {
                     waterFalls.Stop();
+                }
+                if(forestSounds.isPlaying)
+                {
+                    forestSounds.Stop();
                 }
                 fire1.SetActive(false);
                 fire2.SetActive(false);
@@ -110,6 +116,14 @@ public class PlayerAbility : MonoBehaviour
                 goto case 2; //gross!
             case 2:
                 {
+                    if (forestSounds != null && abilityVal == 2)
+                 {
+                    if (!forestSounds.isPlaying)  
+                    {
+                        forestSounds.loop = true;  
+                        forestSounds.Play();        
+                    }
+                }
                     
                     if (abilityActivate.ReadValueAsObject() != null && !isHolding)
                     {

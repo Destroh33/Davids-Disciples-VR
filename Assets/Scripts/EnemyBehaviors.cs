@@ -24,7 +24,7 @@ public class EnemyBehaviors : MonoBehaviour
   
     void Update() 
     {  
-        if (playerContact && canAttack)
+        if (playerContact && canAttack && player != null)
         {
             Attack();
         }
@@ -39,11 +39,13 @@ public class EnemyBehaviors : MonoBehaviour
         }
         if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= chaseRange)
         {
-            agent.destination = player.transform.position;  
+            if(player != null)
+            {
+                agent.destination = player.transform.position;  
+            }
         }
         if(isChasing && Vector3.Distance(transform.position, player.transform.position) > chaseRange)
         {
-            Debug.Log("in isChasing");
             isChasing = false; 
             agent.destination = walkPoints[currentIndex].transform.position;
         }
@@ -72,9 +74,13 @@ public class EnemyBehaviors : MonoBehaviour
     void Attack()
     {
         anim.SetTrigger("Attack");
-        player.GetComponent<EntityHealthAndDmg>().TakeDamage(100);
-        canAttack = false;
-        Invoke("Cooldown", 2f);
+        if(player != null)
+        {
+            player.GetComponent<EntityHealthAndDmg>().TakeDamage(50);
+            canAttack = false;
+            Invoke("Cooldown", 2f);
+
+        }
     }
     void Cooldown()
     {

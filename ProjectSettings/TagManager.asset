@@ -15,6 +15,9 @@ TagManager:
   - Crab
   - FireGate
   - Wall
+  - BGM
+  - DontChangeVolume
+  - SFX
   layers:
   - Default
   - TransparentFX
