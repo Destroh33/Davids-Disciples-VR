@@ -15,6 +15,9 @@ public class PlayerAbility : MonoBehaviour
     Animator animator;
     [SerializeField] GameObject fire1;
     [SerializeField] GameObject fire2;
+    public AudioSource iceSound;
+    public AudioSource earthSound; 
+    public AudioSource waterFalls; 
 
     bool abilityActive,cooldown = true;
     //0 - none
@@ -31,6 +34,9 @@ public class PlayerAbility : MonoBehaviour
     {
         animator = dave.GetComponent<Animator>();
         cam = Camera.main;
+        iceSound = GameObject.Find("Ice Ability").GetComponent<AudioSource>();
+        earthSound = GameObject.Find("Earth Ability").GetComponent<AudioSource>();
+        waterFalls = GameObject.Find("Water Stream").GetComponent<AudioSource>();
     }
 
     public int GetAbilityVal()
@@ -51,13 +57,24 @@ public class PlayerAbility : MonoBehaviour
         switch (abilityVal)
         {
             case 0:
+                if (waterFalls.isPlaying)  
+                {
+                    waterFalls.Stop();
+                }
                 fire1.SetActive(false);
                 fire2.SetActive(false);
 
                 break;
             case 1: //ice
                 IceGrow currIce = null;
-
+                if (waterFalls != null && abilityVal == 1)
+                 {
+                    if (!waterFalls.isPlaying)  
+                    {
+                        waterFalls.loop = true;  
+                        waterFalls.Play();        
+                    }
+                }
                 if (abilityActivate.triggered)
                 {
                     if (cooldown)
@@ -75,6 +92,10 @@ public class PlayerAbility : MonoBehaviour
                                 Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.red, 10);
                                 Debug.Log("ray hit");
                                 currIce = Instantiate(ice, hit.point, this.transform.rotation);
+                                if (iceSound != null)
+                                {
+                                    iceSound.Play();
+                                }
 
                             }
                         }
@@ -162,6 +183,10 @@ public class PlayerAbility : MonoBehaviour
                 {
                     animator.SetBool("ecast", true);
                     // Debug.Log("Hit: " + hit.transform.name);
+                    if(earthSound != null && hit.transform.gameObject.CompareTag("Grabbable"))
+                    {
+                        earthSound.Play();
+                    }
                     grabbedObject = hit.transform.gameObject;
                     Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
                     grabOffset = rb.transform.position;

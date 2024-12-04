@@ -11,11 +11,16 @@ public class CookingScript : MonoBehaviour
     [SerializeField] GameObject key;
     [SerializeField] GameObject soup;
     private bool wallCollide = false;
+
+    public AudioSource dropCrab;
+    public AudioSource cookSoup;
     // Start is called before the first frame update
     void Start()
     {
         soup.SetActive(false);
         key.SetActive(false);
+        dropCrab = GameObject.Find("Drop Crab").GetComponent<AudioSource>();
+        cookSoup = GameObject.Find("Cooking Soup").GetComponent<AudioSource>();
     }
     public bool isWallCollide()
     {
@@ -33,6 +38,10 @@ public class CookingScript : MonoBehaviour
             water.SetActive(false);
             soup.SetActive(true);
             Debug.Log("cooked the crab");
+            if(cookSoup != null)
+            {
+                cookSoup.Play();
+            }
             crabbed = false;
         }
     }
@@ -45,14 +54,21 @@ public class CookingScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Crab"))
         {
             //GetComponent<Rigidbody>().isKinematic = false;
-            
             Destroy(collision.gameObject);
+            if (dropCrab != null)
+            {
+                dropCrab.Play();
+            }
             crabbed = true;
         }
         
         if (collision.gameObject.CompareTag("FireGate") && cooked)
         {
             key.SetActive(true);
+            if(cookSoup != null && cookSoup.isPlaying)
+            {
+                cookSoup.Stop();
+            }
         }
         /*
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))

@@ -12,6 +12,8 @@ public class FireCrabMoveScript : MonoBehaviour
     Vector3 forward;
     private bool wallCollide = false;
     bool dead = false;
+    public AudioSource enemyHit;
+    bool hasPlayedDead = false; 
     private void Awake()
     {
         forward = transform.forward;
@@ -19,13 +21,21 @@ public class FireCrabMoveScript : MonoBehaviour
         //tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        enemyHit = GameObject.Find("Sword Slash").GetComponent<AudioSource>();
         walkDir = 1;
         Turn();
     }
     private void Update()
     {
         if (health <= 0)
-            Die();
+        {
+            if(enemyHit != null && !hasPlayedDead)
+            {
+                enemyHit.Play();
+                hasPlayedDead = true;
+            }
+             Die();
+        }
         Walk();
         
 

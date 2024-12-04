@@ -9,15 +9,28 @@ public class EntityHealthAndDmg : MonoBehaviour
     [SerializeField] bool player;
 
     EnemyBehaviors enemyBehaviors;
-
+    public AudioSource deathSound;
+    public AudioSource bgMusic;
+    public AudioSource playerHurtSound;
     void Start()
     {
         currentHealth = maxHealth;
         enemyBehaviors = GetComponent<EnemyBehaviors>();
+        GameObject sound = GameObject.Find("Enemy Death");
+        if (sound != null)
+        {
+            deathSound = sound.GetComponent<AudioSource>(); 
+        }
+        bgMusic = GameObject.Find("Audio Source").GetComponent<AudioSource>(); 
+        playerHurtSound = GameObject.Find("Player Hurt").GetComponent<AudioSource>();
     }
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        if (player && playerHurtSound != null)
+        {
+            playerHurtSound.Play();
+        }  
         //Debug.Log(currentHealth);
     }
     public int GetHealth()
@@ -40,10 +53,17 @@ public class EntityHealthAndDmg : MonoBehaviour
             {
                 SceneManager.LoadScene("Game Over");
                 Cursor.lockState = CursorLockMode.None;
+                // if (bgMusic != null && bgMusic.isPlaying)
+                // {
+                //     bgMusic.Stop();  
+                // }
+                
             }
             if(!player)
             {
+                deathSound.Play();
                 enemyBehaviors.OnDeath();
+
                 Debug.Log(" enemy died");
             }
         }

@@ -10,8 +10,14 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] GameObject player;
     bool fire = false;
     bool moving = true;
+    public AudioSource swordSound;  
     void Start()
     {
+        GameObject swordSlash = GameObject.Find("Sword Slash");
+        if (swordSlash != null)
+        {
+            swordSound = swordSlash.GetComponent<AudioSource>(); 
+        }
         
     }
 
@@ -30,6 +36,9 @@ public class MeleeAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.GetComponent<EntityHealthAndDmg>().TakeDamage(50);
+            if (swordSound != null) {
+                swordSound.Play();
+            }
         }
         if (collision.gameObject.CompareTag("Burnable") && fire){
            // Debug.Log("burn");

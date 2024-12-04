@@ -20,11 +20,13 @@ public class PlayerMovement : MonoBehaviour
     float lastSwingTime;
     bool grounded = true,watered = false,meleecooldown = true;
     public int keyCount = 0;
+    public AudioSource swingSword;
     Animator anim;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
     bool dubjump = true;
     private EntityHealthAndDmg playerHealth;
+    public AudioSource keyGain; 
 
     private Vector2 GetMouseInput()
     {
@@ -41,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
         rotation = new Vector2(0, 0);
         rb.velocity = new Vector3(0, 0, 0);
         playerHealth = GetComponent<EntityHealthAndDmg>();
+        keyGain = GameObject.Find("Key Pickup").GetComponent<AudioSource>(); 
+        swingSword = GameObject.Find("Swing Sword").GetComponent<AudioSource>();
     }
 
     void OnMove(InputValue value)
@@ -70,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
             melee.SetActive(true);
             lastSwingTime = time;
             anim.SetTrigger("attack");
+            swingSword.Play();
             meleecooldown = false;
             Invoke("ResetCooldown", 0.7f);
         }
@@ -84,6 +89,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Key"))
         {
             Destroy(collision.gameObject);
+            if (keyGain != null)
+            {
+                keyGain.Play();
+            }
             keyCount++;
             playerHealth.GainHealth();
         }
