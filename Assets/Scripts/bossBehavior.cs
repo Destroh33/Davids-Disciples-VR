@@ -53,18 +53,16 @@ public class bossBehavior : MonoBehaviour
     {
         if (!dead)
             rb.MovePosition(rb.position + new Vector3(0,0,(0.005f * walkDir) ));
-        //if (walkDir == 0 && !dead)
-        //    Turn();
-
+        
     }
     public void Die()
     {
         //health = -22;
         anim.SetTrigger("crabDie");
         walkDir = 0;
-        //transform.localEulerAngles = new Vector3(180, transform.rotation.y, transform.rotation.z);
-        //rb.isKinematic = false;
-        //gameObject.layer = 3;
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.FreezePositionX;
+        rb.freezeRotation = true;
         dead = true;
     }
     void OnCollisionEnter(Collision collision)
