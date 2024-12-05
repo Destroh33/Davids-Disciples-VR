@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class bossBehavior : MonoBehaviour
 {
+    [SerializeField] GameObject track;
     [SerializeField] int health = 20;
-    int walkDir = 1;
+    int walkDir = 0;
     Animator anim;
     Rigidbody rb;
     bool dead = false;
@@ -15,45 +16,55 @@ public class bossBehavior : MonoBehaviour
     //EntityHealthAndDmg health;
     public bool playerIn = false;
     [SerializeField] List<Collider> dmgBox;
+    bool active = true;
     private void Awake()
     {
-        //health = GetComponent<EntityHealthAndDmg>();
-        //forward = transform.forward;
-        //StartCoroutine(Behavior());
-        //tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        anim.enabled = true;
         enemyHit = GameObject.Find("Sword Slash").GetComponent<AudioSource>();
         walkDir = 1;
     }
     private void Update()
     {
-        if (health >= 0)
+        if (active)
         {
-            Walk();
-            
-            if(playerIn && !attacking)
+            if (health >= 0)
             {
-               Attack();
-            }
+                Walk();
 
-        }
-        else if (!dead)
-        {
-            Die();
+                if (playerIn && !attacking)
+                {
+                    Attack();
+                }
+
+            }
+            else if (!dead)
+            {
+                Die();
+            }
         }
         
     }
     private void Begin()
     {
+        
+        //anim.Play("summon");
+        
+        Debug.Log("lets befgin");
         walkDir = 1;
+        active = true;
     }
 
     private void Walk()
     {
+        Debug.Log("whalgking: " + walkDir);
         if (!dead)
-            rb.MovePosition(rb.position + new Vector3(0,0,(0.005f * walkDir) ));
-        
+        {
+            transform.forward = Vector3.Normalize(transform.position - track.transform.position);
+
+            rb.MovePosition(rb.position + new Vector3(0, 0, (0.005f * walkDir)));
+        }
     }
     public void Die()
     {
@@ -64,6 +75,7 @@ public class bossBehavior : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezePositionX;
         rb.freezeRotation = true;
         dead = true;
+        active = false;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -107,7 +119,7 @@ public class bossBehavior : MonoBehaviour
                 dmgBox[3].isTrigger = true;
                 break;
         }
-        Invoke("triggerReset", 0.75f);
+        Invoke("triggerReset", 1f);
         Invoke("attackTimer", 1f);
         
     }

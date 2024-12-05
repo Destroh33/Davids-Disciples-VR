@@ -31,7 +31,7 @@ public class dmgBox : MonoBehaviour
             {
                 dmgCooldown = false;
                 other.gameObject.GetComponent<EntityHealthAndDmg>().TakeDamage(10);
-                Invoke("Cooldown",0.2f);
+                Invoke("Cooldown",0.1f);
             }
             //Debug.Log("owie");}
         }
