@@ -51,6 +51,10 @@ public class MeleeAttack : MonoBehaviour
         {
             collision.GetComponent<FireCrabMoveScript>().decHealth();
         }
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            collision.GetComponent<bossBehavior>().decHealth();
+        }
     }
     void switchAirMoving()
     {

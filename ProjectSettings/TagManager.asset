@@ -18,6 +18,8 @@ TagManager:
   - BGM
   - DontChangeVolume
   - SFX
+  - Damage
+  - Boss
   layers:
   - Default
   - TransparentFX

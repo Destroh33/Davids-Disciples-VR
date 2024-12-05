@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
             keyCount++;
             playerHealth.GainHealth();
         }
+        
     }
     void OnCollisionStay(Collision collision)
     {
@@ -125,8 +126,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if(other.gameObject.layer == 4)
+        if (other.gameObject.CompareTag("Damage"))
+        {
+            playerHealth.TakeDamage(40);
+        }
+        if (other.gameObject.layer == 4)
         {
             watered = true;
         }
