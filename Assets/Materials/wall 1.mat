@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: wall 1
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 196a485df524e364f8f0bd6d4fda5dd5, type: 2}
+  m_Parent: {fileID: 2100000, guid: e3448fcc91154b74d96ca46c63ff0dc1, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _METALLICGLOSSMAP

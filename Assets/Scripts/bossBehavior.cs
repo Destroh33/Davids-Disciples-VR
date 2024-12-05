@@ -24,6 +24,7 @@ public class bossBehavior : MonoBehaviour
         anim.enabled = true;
         enemyHit = GameObject.Find("Sword Slash").GetComponent<AudioSource>();
         walkDir = 1;
+        
     }
     private void Update()
     {
@@ -69,13 +70,15 @@ public class bossBehavior : MonoBehaviour
     public void Die()
     {
         //health = -22;
-        anim.SetTrigger("crabDie");
+        //anim.SetTrigger("crabDie");
+        rb.velocity = Vector3.zero;
         walkDir = 0;
-        rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.FreezePositionX;
+        Destroy(anim);
+        transform.localEulerAngles = new Vector3(180, transform.rotation.y, transform.rotation.z);
         rb.freezeRotation = true;
         dead = true;
         active = false;
+        //Invoke("dierot", 1f);
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -93,7 +96,10 @@ public class bossBehavior : MonoBehaviour
         }
 
     }
-
+    public bool isDead()
+    {
+        return dead;
+    }
     public void decHealth()
     {
         Debug.Log("owowwa");
@@ -134,4 +140,5 @@ public class bossBehavior : MonoBehaviour
         dmgBox[2].isTrigger = false;
         dmgBox[3].isTrigger = false;
     }
+    
 }
