@@ -7,9 +7,6 @@ public class BurnScript : MonoBehaviour
 {
     [SerializeField] GameObject fire;
     [SerializeField] GameObject fire2;
-    [SerializeField] GameObject fire3;
-    [SerializeField] GameObject fire4;
-
     [SerializeField] GameObject steam;
     [SerializeField] bool destructible;
     bool isBurning = false;
@@ -21,9 +18,7 @@ public class BurnScript : MonoBehaviour
     {
         fire.SetActive(true);
         fire2.SetActive(true);
-        fire3.SetActive(true);
-        fire4.SetActive(true);
-        steam.SetActive(true);
+        if(steam != null ) steam.SetActive(true);
         isBurning = true;
         if (destructible)
             Invoke("Burnt", 5f);

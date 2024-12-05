@@ -134,7 +134,7 @@ public class FireCrabMoveScript : MonoBehaviour
     {
        //float tVal = (Random.Range(1, 4) * 90);
         Quaternion rot = Quaternion.Euler(0, Random.Range(1, 4) * 90, 0);
-        Debug.Log("ROTATTEEEEE");
+        //Debug.Log("ROTATTEEEEE");
         //transform.Rotate();
        //rb.rotation.SetEulerAngles(0, tVal, 0); /*(Quaternion.Euler(new Vector3(0, tVal, 0)))*/
         rb.rotation.Set(rot.x,rot.y,rot.z,rot.w);
