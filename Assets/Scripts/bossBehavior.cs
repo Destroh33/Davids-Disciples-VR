@@ -7,11 +7,13 @@ public class bossBehavior : MonoBehaviour
 {
     [SerializeField] GameObject track;
     [SerializeField] int health = 20;
+    [SerializeField] ParticleSystem deathExplosion;
     int walkDir = 0;
     Animator anim;
     Rigidbody rb;
     bool dead = false;
     public AudioSource enemyHit;
+    public AudioSource death;
     bool attacking = false;
     //EntityHealthAndDmg health;
     public bool playerIn = false;
@@ -40,7 +42,7 @@ public class bossBehavior : MonoBehaviour
                 }
 
             }
-            else if (!dead)
+            else
             {
                 Die();
             }
@@ -69,16 +71,13 @@ public class bossBehavior : MonoBehaviour
     }
     public void Die()
     {
-        //health = -22;
-        //anim.SetTrigger("crabDie");
-        rb.velocity = Vector3.zero;
-        walkDir = 0;
-        Destroy(anim);
-        transform.localEulerAngles = new Vector3(180, transform.rotation.y, transform.rotation.z);
-        rb.freezeRotation = true;
         dead = true;
-        active = false;
-        //Invoke("dierot", 1f);
+        deathExplosion.gameObject.SetActive(true);
+        Invoke("Boom", 1f);
+        if (death != null)
+        {
+            death.Play();
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -140,5 +139,8 @@ public class bossBehavior : MonoBehaviour
         dmgBox[2].isTrigger = false;
         dmgBox[3].isTrigger = false;
     }
-    
+    private void Boom()
+    {
+        Destroy(gameObject);
+    }
 }
