@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 movementVector;
-    private Rigidbody rb;
+    [SerializeField] Rigidbody rb;
     [SerializeField] int speed = 0;
     [SerializeField] private Vector2 sensitivity;
     private Vector2 rotation;
@@ -22,13 +22,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;
     bool grounded = true,watered = false,meleecooldown = true;
     public int keyCount = 0;
-    public AudioSource swingSword;
-    Animator anim;
+    //public AudioSource swingSword;
+    [SerializeField] Animator anim;
     //[SerializeField] Transform tr;
     // Start is called before the first frame update
     bool dubjump = true;
     private EntityHealthAndDmg playerHealth;
-    public AudioSource keyGain; 
+    //public AudioSource keyGain; 
 
     private Vector2 GetMouseInput()
     {
@@ -38,15 +38,15 @@ public class PlayerMovement : MonoBehaviour
     }
     void Start()
     {
-        anim = dave.GetComponent<Animator>();
+        //anim = dave.GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
         melee.SetActive(false);
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         rotation = new Vector2(0, 0);
         rb.velocity = new Vector3(0, 0, 0);
         playerHealth = GetComponent<EntityHealthAndDmg>();
-        keyGain = GameObject.Find("Key Pickup").GetComponent<AudioSource>(); 
-        swingSword = GameObject.Find("Swing Sword").GetComponent<AudioSource>();
+        //keyGain = GameObject.Find("Key Pickup").GetComponent<AudioSource>(); 
+        //swingSword = GameObject.Find("Swing Sword").GetComponent<AudioSource>();
         sensitivitySlider.onValueChanged.AddListener(OnSensitivityChanged);
     }
     private void OnSensitivityChanged(float value)
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             melee.SetActive(true);
             lastSwingTime = time;
             anim.SetTrigger("attack");
-            swingSword.Play();
+            //swingSword.Play();
             meleecooldown = false;
             Invoke("ResetCooldown", 0.7f);
         }
@@ -98,10 +98,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Key"))
         {
             Destroy(collision.gameObject);
-            if (keyGain != null)
-            {
-                keyGain.Play();
-            }
+            //if (keyGain != null)
+            //{
+            //    keyGain.Play();
+            //}
             keyCount++;
             playerHealth.GainHealth();
         }
