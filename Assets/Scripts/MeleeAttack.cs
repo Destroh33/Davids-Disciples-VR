@@ -10,7 +10,8 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] GameObject player;
     bool fire = false;
     bool moving = true;
-    public AudioSource swordSound;  
+    public AudioSource swordSound;
+    [SerializeField] PlayerAbility pa;
     void Start()
     {
         GameObject swordSlash = GameObject.Find("Sword Slash");
@@ -24,7 +25,7 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.GetComponent<PlayerAbility>().GetAbilityVal() == 4)
+        if(pa.GetAbilityVal() == 4)
         {
             fire = true;
         }
